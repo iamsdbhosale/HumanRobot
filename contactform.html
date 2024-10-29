@@ -1,0 +1,66 @@
+<html>
+    <title>Contact Form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+    .content {
+      max-width: 300px;
+      margin: auto;
+    }
+    </style>
+
+<body>
+
+    <div class="content">
+      <!-- Page content -->
+    
+
+<div class="container">
+    <form name ="submit-to-google-sheet">
+  
+      <label for="fname">First Name</label><br>
+      <input type="text" id="fname" name="firstname" placeholder="Your name.."><br>
+  
+      <label for="lname">Last Name</label><br>
+      <input type="text" id="lname" name="lastname" placeholder="Your last name.."><br>
+  
+      <label for="country">Country</label><br>
+      <select id="country" name="country"><br>
+        <option value="australia">Australia</option>
+        <option value="canada">Canada</option>
+        <option value="usa">USA</option>
+      </select><br>
+  
+      <label for="subject">Subject</label><br>
+      <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea><br>
+  
+      <input type="submit" value="submit"><br>
+      <span id="success"></span>
+    </form>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbye9D1qdsWakh24Sfg9rzdpWOsjkZIaioBoVvPzG6NgrfmU5gbdSyutSyeVU9VQ6slq/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const success = document.getElementById('success');
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                success.innerHTML="Data submitted successfully.";
+
+                setTimeout(function ()
+                {
+                    success.innerHTML=""; 
+                },5000)
+                form.reset();
+            })
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>
+  </div>
+
+</div>
+    
+</body>
+</html>
+  
