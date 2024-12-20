@@ -74,11 +74,29 @@
       border: 1px solid #ccc;
       background-color: #e6f7ff;
     }
+                .circular-logo {
+            width: 150px; /* Set the width of the circle */
+            height: 150px; /* Set the height of the circle */
+            border-radius: 50%; /* Make the element circular */
+            overflow: hidden; /* Hide any content outside the circle */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #000; /* Optional border for styling */
+        }
+
+        .circular-logo img {
+            width: 100%; /* Ensure the image fits the container */
+            height: 100%;
+            object-fit: cover; /* Maintain the aspect ratio and fill the circle */
+        }
     </style>
 </head>
 <body>
   
-     
+         <div class="circular-logo">
+        <img src="favicon.png" alt="Circular Logo">
+    </div>
 
     <div class="section1">
     
