@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Posts Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        iframe {
+            border: none;
+            width: 100%;
+            height: calc(100vh - 70px); /* Adjust height based on header size */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>All Public Posts</h1>
+    </header>
+    <iframe 
+        src="https://example.com/posts" 
+        title="Public Posts" 
+        allowfullscreen>
+    </iframe>
+</body>
+</html>
