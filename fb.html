@@ -3,23 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook Post Embed</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chhaava Trailer - HumanRobot Relata</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #444;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .main-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content h2 {
+            margin-bottom: 1rem;
+        }
+
+        .main-content p {
+            margin-bottom: 1rem;
+        }
+
+        /* Facebook Video Embed */
+        .fb-video {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        /* Facebook Like and Share Buttons */
+        .fb-buttons {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .fb-buttons .fb-like,
+        .fb-buttons .fb-share-button {
+            display: inline-block;
+            margin: 0 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .fb-video {
+                margin: 1rem 0;
+            }
+
+            .fb-buttons .fb-like,
+            .fb-buttons .fb-share-button {
+                display: block;
+                margin: 0.5rem auto;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <h1>Chhaava Trailer - HumanRobot Relata</h1>
+        <p>Watch the most awaited trailer of Hindi Cinema's grandest spectacle!</p>
+    </header>
 
-    <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v22.0"></script>
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
-    
-    <!-- Facebook SDK
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" 
-        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0">
-    </script> -->
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Load Facebook SDK for JavaScript -->
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v22.0&appId=792607014621674"></script>
 
-    <!-- Embedded Facebook Post -->
-   <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fiamsdbhosale%2Fposts%2Fpfbid0Bym9mVhULzKdoqkanwFknXTZSCT1FhgHFKkvwF16jScEqHt9yTonAqaDmEBRXyNAl&show_text=true&width=500" width="500" height="372" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-<br><hr>
-    <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fiamsdbhosale%2Fvideos%2F1273352993927016%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+            <!-- Embedded Facebook Video Player -->
+            <div class="fb-video" data-href="https://www.facebook.com/iamsdbhosale/videos/1273352993927016/" data-width="500" data-show-text="false">
+                <blockquote cite="https://www.facebook.com/iamsdbhosale/videos/1273352993927016/" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/iamsdbhosale/videos/1273352993927016/"></a>
+                </blockquote>
+            </div>
+
+            <!-- Facebook Like and Share Buttons -->
+            <div class="fb-buttons">
+                <div class="fb-like" data-href="https://www.facebook.com/iamsdbhosale/videos/1273352993927016/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="false"></div>
+                <div class="fb-share-button" data-href="https://www.facebook.com/iamsdbhosale/videos/1273352993927016/" data-layout="button_count" data-size="large"></div>
+            </div>
+
+            <!-- Descriptive Text -->
+            <p>
+                Get ready for the cinematic storm of the year! 🌟<br><br>
+                Dinesh Vijan and Maddock Films proudly present the most awaited trailer of Hindi Cinema&#039;s grandest spectacle - #Chhaava! 🎥<br><br>
+                &quot;Yeh Sher Shiva ka Chhaava shor nahin karta, seedha shikaar karta hai!&quot; 🦁<br><br>
+                Watch the power-packed #ChhaavaTrailer and feel the roar of greatness! 🔥<br><br>
+                #ChhaavaTrailerOutNow – Don’t miss the action, the drama, and the legacy!<br><br>
+                🔗 Watch it here: Official Trailer 🚀<br><br>
+                The wait is almost over – #ChhaavaOn14Feb, only in cinemas! 🍿<br><br>
+                Gear up for a tale of courage, legacy, and unforgettable battles! ⚔️<br><br>
+                Witness the legend come alive on the big screen this Valentine’s Day! ❤️<br><br>
+                Mark the date – 14th February! Let’s celebrate the roar of #Chhaava! 🙌<br><br>
+                ---<br><br>
+                या वर्षातील सर्वात मोठ्या चित्रपट वादळासाठी तयार राहा! 🌟<br><br>
+                दिनेश विजन आणि मॅडॉक फिल्म्स अभिमानाने सादर करतात हिंदी सिनेमाच्या भव्यतम चमत्काराचा ट्रेलर - #छावा! 🎥<br><br>
+                &quot;हे शेर शिवाचे छावा शोर करत नाही, थेट शिकारी करतो!&quot; 🦁<br><br>
+                #छावाTrailer पाहा आणि पराक्रमाची दहाड अनुभवा! 🔥<br><br>
+                #छावाTrailerOutNow – अ‍ॅक्शन, ड्रामा आणि वारसा अनुभवण्याचे चुकवू नका!<br><br>
+                🔗 पहा इथे: Official Trailer 🚀<br><br>
+                प्रतिक्षा संपते आहे – #छावाOn14Feb, फक्त चित्रपटगृहात! 🍿<br><br>
+                धैर्य, वारसा आणि अविस्मरणीय लढ्यांची कथा अनुभवण्यासाठी सज्ज व्हा! ⚔️<br><br>
+                या प्रजासत्ताक दिनी मोठ्या पडद्यावर हा महाकाव्य अनुभव घ्या! ❤️<br><br>
+                तारीख लक्षात ठेवा – 14 फेब्रुवारी! #छावा चा गजर साजरा करूया! 🙌<br><br>
+                ---<br><br>
+                इस साल की सबसे बड़ी फिल्मी सुनामी के लिए तैयार हो जाइए! 🌟<br><br>
+                दिनेश विजन और मैडॉक फिल्म्स गर्व से पेश करते हैं हिंदी सिनेमा के सबसे बड़े चमत्कार का ट्रेलर - #छावा! 🎥<br><br>
+                &quot;यह शेर शिवा का छावा शोर नहीं करता, सीधे शिकार करता है!&quot; 🦁<br><br>
+                #छावाTrailer देखिए और पराक्रम की गूंज महसूस कीजिए! 🔥<br><br>
+                #छावाTrailerOutNow – ऐक्शन, ड्रामा और विरासत का अनुभव लेना न भूलें!<br><br>
+                🔗 देखें यहां: Official Trailer 🚀<br><br>
+                इंतजार खत्म होने वाला है – #छावाOn14Feb, केवल सिनेमाघरों में! 🍿<br><br>
+                साहस, विरासत और अविस्मरणीय लड़ाइयों की कहानी देखने के लिए तैयार हो जाइए! ⚔️<br><br>
+                इस वैलेंटाइन डे बड़े पर्दे पर आइए और इस गाथा का हिस्सा बनिए! ❤️<br><br>
+                तारीख याद रखें – 14 फरवरी! आइए मनाएं #छावा का जश्न! 🙌<br><br>
+                ---<br><br>
+                छत्रपती संभाजी महाराज, शिवरायांचे पराक्रमी पुत्र आणि स्वराज्याचे दुसरे छत्रपती होते.<br>
+                त्यांचा जन्म 14 मे 1657 रोजी झाला आणि ते वीरश्री, शौर्य आणि धैर्याचे प्रतीक होते.<br>
+                ते उत्कृष्ट योद्धा, कुशल रणनीतिकार आणि विद्वान होते, ज्यांना आठ भाषांचे ज्ञान होते.<br>
+                संभाजी महाराजांनी स्वराज्याच्या संरक्षणासाठी मुघल, पोर्तुगीज आणि इंग्रजांविरुद्ध धैर्याने लढा दिला.<br>
+                त्यांच्या शौर्यामुळे छत्रपती शिवाजी महाराजांनी त्यांना &#039;शंभू राजा&#039; या नावाने गौरवले.<br>
+                धर्म आणि स्वाभिमानासाठी त्यांनी बलिदान दिले, अत्यंत हालअपेष्टांना तोंड दिले पण झुकले नाहीत.<br>
+                1689 साली संभाजी महाराज शहीद झाले, परंतु त्यांचे बलिदान भारतीय इतिहासात अजरामर आहे.<br>
+                छत्रपती संभाजी महाराज आजही देशभक्ती, निष्ठा आणि स्वाभिमानाचे प्रतीक मानले जातात.<br>
+                ---<br><br>
+                छत्रपति संभाजी महाराज, शिवाजी महाराज के वीर पुत्र और स्वराज्य के दूसरे छत्रपति थे।<br>
+                उनका जन्म 14 मई 1657 को हुआ और वे साहस, शौर्य और बलिदान के प्रतीक माने जाते हैं।<br>
+                वे एक महान योद्धा, कुशल रणनीतिकार और विद्वान थे, जिन्हें आठ भाषाओं का ज्ञान था।<br>
+                संभाजी महाराज ने स्वराज्य की रक्षा के लिए मुगलों, पुर्तगालियों और अंग्रेजों के खिलाफ वीरता से लड़ाई लड़ी।<br>
+                उनके पराक्रम के लिए शिवाजी महाराज ने उन्हें &#039;शंभू राजा&#039; के नाम से सम्मानित किया।<br>
+                उन्होंने धर्म और स्वाभिमान के लिए अपना जीवन बलिदान कर दिया, कठिन यातनाओं के बाद भी हार नहीं मानी।<br>
+                1689 में संभाजी महाराज वीरगति को प्राप्त हुए, लेकिन उनका बलिदान भारतीय इतिहास में अमर है।<br>
+                छत्रपति संभाजी महाराज आज भी देशभक्ति और निष्ठा के प्रतीक के रूप में पूजनीय हैं।<br>
+                ---<br><br>
+                Chhatrapati Sambhaji Maharaj was the brave son of Shivaji Maharaj and the second Chhatrapati of Swarajya.<br>
+                Born on 14th May 1657, he is remembered as a symbol of courage, valor, and sacrifice.<br>
+                He was an exceptional warrior, skilled strategist, and scholar fluent in eight languages.<br>
+                Sambhaji Maharaj valiantly fought against the Mughals, Portuguese, and British to protect Swarajya.<br>
+                His bravery earned him the title of &#039;Shambhu Raja&#039; from Shivaji Maharaj.<br>
+                He sacrificed his life for the protection of religion and dignity, enduring severe torture but never bowing down.<br>
+                In 1689, Sambhaji Maharaj attained martyrdom, and his sacrifice remains immortal in Indian history.<br>
+                Today, Chhatrapati Sambhaji Maharaj is revered as an icon of patriotism, loyalty, and pride.<br>
+            </p>
+            <p>Posted by <a href="https://www.facebook.com/iamsdbhosale">HumanRobot Relata</a> on Friday, January 24, 2025</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 HumanRobot Relata. All rights reserved.</p>
+    </footer>
 </body>
 </html>
