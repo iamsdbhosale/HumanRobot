@@ -4,17 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facebook Post Embed</title>
+    <script>
+        function loadFacebookPost() {
+            var iframe = document.createElement("iframe");
+            iframe.src = "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fiamsdbhosale%2Fposts%2Fpfbid0BdEMEdSwem24KFSsBPT9U8T2TDHJbZrGjv9gd3rLC9KAJ35KKpJnKE8P6DvgUcihl&show_text=true&width=500";
+            iframe.width = "500";
+            iframe.height = "600";
+            iframe.style.border = "none";
+            iframe.style.overflow = "hidden";
+            iframe.scrolling = "no";
+            iframe.frameBorder = "0";
+            iframe.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
+            iframe.allowFullscreen = true;
+            document.getElementById("fb-container").appendChild(iframe);
+        }
+        window.onload = loadFacebookPost;
+    </script>
 </head>
 <body>
     <h2>Facebook Post</h2>
-    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fiamsdbhosale%2Fposts%2Fpfbid0BdEMEdSwem24KFSsBPT9U8T2TDHJbZrGjv9gd3rLC9KAJ35KKpJnKE8P6DvgUcihl&show_text=true&width=500" 
-        width="500" 
-        height="600" 
-        style="border:none; overflow:hidden;" 
-        scrolling="no" 
-        frameborder="0" 
-        allowfullscreen="true" 
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-    </iframe>
+    <div id="fb-container"></div>
 </body>
 </html>
