@@ -3,12 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded X Post</title>
+    <title>X Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .post {
+            background-color: #222;
+            border-radius: 12px;
+            padding: 16px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .post-header img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        .post-header .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .post-header .user-info .username {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .post-header .user-info .handle {
+            color: #888;
+            font-size: 14px;
+        }
+        .post-content {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .post-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 14px;
+        }
+        .post-footer .icon {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .post-footer .icon span {
+            margin-left: 4px;
+        }
+    </style>
 </head>
 <body>
-    <blockquote class="twitter-tweet">
-        <a href="https://x.com/iamsdbhosale/status/1882313678822986154"></a>
-    </blockquote> 
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <div class="post">
+        <!-- Post Header -->
+        <div class="post-header">
+            <img src="https://via.placeholder.com/48" alt="Profile Picture">
+            <div class="user-info">
+                <div class="username">Sagar Bhosale</div>
+                <div class="handle">@iamsdbhosale</div>
+            </div>
+        </div>
+
+        <!-- Post Content -->
+        <div class="post-content">
+            This is a sample post content. Replace this with the actual content from the X post.
+        </div>
+
+        <!-- Post Image (if any) -->
+        <img src="https://via.placeholder.com/500x300" alt="Post Image" class="post-image">
+
+        <!-- Post Footer -->
+        <div class="post-footer">
+            <div class="icon">💬 <span>123</span></div>
+            <div class="icon">🔁 <span>456</span></div>
+            <div class="icon">❤️ <span>789</span></div>
+            <div class="icon">📤</div>
+        </div>
+    </div>
 </body>
 </html>
