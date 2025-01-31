@@ -4,25 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facebook Post Embed</title>
-    <script>
-        function loadFacebookPost() {
-            var iframe = document.createElement("iframe");
-            iframe.src = "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fiamsdbhosale%2Fposts%2Fpfbid0BdEMEdSwem24KFSsBPT9U8T2TDHJbZrGjv9gd3rLC9KAJ35KKpJnKE8P6DvgUcihl&show_text=true&width=500";
-            iframe.width = "500";
-            iframe.height = "600";
-            iframe.style.border = "none";
-            iframe.style.overflow = "hidden";
-            iframe.scrolling = "no";
-            iframe.frameBorder = "0";
-            iframe.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
-            iframe.allowFullscreen = true;
-            document.getElementById("fb-container").appendChild(iframe);
-        }
-        window.onload = loadFacebookPost;
-    </script>
 </head>
 <body>
-    <h2>Facebook Post</h2>
-    <div id="fb-container"></div>
+    <!-- Facebook SDK -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" 
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0">
+    </script>
+
+    <!-- Embedded Facebook Post -->
+    <div class="fb-post" 
+        data-href="https://www.facebook.com/FacebookDevelopers/posts/10159280248668553" 
+        data-width="500"></div>
 </body>
 </html>
