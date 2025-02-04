@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Images</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .rotating-image1 {
+            width: 200px;
+            height: 200px;
+            animation: rotate 1s linear infinite;
+        }
+        .rotating-image2 {
+            width: 200px;
+            height: 200px;
+            animation: rotate 2s linear infinite;
+        }
+        .rotating-image3 {
+            width: 200px;
+            height: 200px;
+            animation: rotate 3s linear infinite;
+        }
+        .rotating-image4 {
+            width: 200px;
+            height: 200px;
+            animation: rotate 4s linear infinite;
+        }
+        .rotating-image5 {
+            width: 200px;
+            height: 200px;
+            animation: rotate 5s linear infinite;
+        }
+        @keyframes rotate {
+            0% {
+                transform: rotate(5deg);
+            }
+            100% {
+                transform: rotate(365deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="HumanRobot.jpg" alt="Rotating Image" class="rotating-image1">
+        <img src="HumanRobot.jpg" alt="Rotating Image" class="rotating-image2">
+        <img src="HumanRobot.jpg" alt="Rotating Image" class="rotating-image3">
+        <img src="HumanRobot.jpg" alt="Rotating Image" class="rotating-image4">
+        <img src="HumanRobot.jpg" alt="Rotating Image" class="rotating-image5">
+        <img src="your-image.jpg" alt="Rotating Image" class="rotating-image">
+        <img src="your-image.jpg" alt="Rotating Image" class="rotating-image">
+        <img src="your-image.jpg" alt="Rotating Image" class="rotating-image">
+        <img src="your-image.jpg" alt="Rotating Image" class="rotating-image">
+        <img src="your-image.jpg" alt="Rotating Image" class="rotating-image">
+    </div>
+</body>
+</html>
