@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock with Roman Numbers</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+        }
+        .clock {
+            width: 200px;
+            height: 200px;
+            border: 0px solid white;
+            border-radius: 75%;
+            position: relative;
+            background: black;
+        }
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translateX(-50%) rotate(0deg);
+            background: white;
+        }
+        .hour {
+            width: 6px;
+            height: 50px;
+        }
+        .minute {
+            width: 4px;
+            height: 70px;
+        }
+        .second {
+            width: 2px;
+            height: 90px;
+            background: red;
+        }
+        .numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+        .numbers div {
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="numbers">
+            <div style="top: 10%; left: 50%;">XII</div>
+            <div style="top: 20%; left: 80%;">I</div>
+            <div style="top: 35%; left: 92%;">II</div>
+            <div style="top: 50%; left: 95%;">III</div>
+            <div style="top: 65%; left: 92%;">IV</div>
+            <div style="top: 80%; left: 80%;">V</div>
+            <div style="top: 90%; left: 50%;">VI</div>
+            <div style="top: 80%; left: 20%;">VII</div>
+            <div style="top: 65%; left: 8%;">VIII</div>
+            <div style="top: 50%; left: 5%;">IX</div>
+            <div style="top: 35%; left: 8%;">X</div>
+            <div style="top: 20%; left: 20%;">XI</div>
+        </div>
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+        <div class="hand second" id="second"></div>
+    </div>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            const hourDeg = (hours * 30) + (minutes * 0.5);
+            const minuteDeg = (minutes * 6) + (seconds * 0.1);
+            const secondDeg = seconds * 6;
+            
+            document.getElementById("hour").style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.getElementById("minute").style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.getElementById("second").style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
