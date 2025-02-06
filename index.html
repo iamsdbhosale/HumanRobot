@@ -371,52 +371,6 @@ With C⚙urtesy : @ह्युमनरोबोट { {C⚙GNILEMENTS PRIVATE L
 </div>   
                 
 </center></div>
-<!--Background clock-->
-     <script>
-        function createBackgroundClocks() {
-            const background = document.getElementById("background");
-            const numClocks = Math.floor(window.innerWidth / 110) * Math.floor(window.innerHeight / 110);
-            for (let i = 0; i < numClocks; i++) {
-                const clock = document.createElement("div");
-                clock.classList.add("clock");
-                const hourHand = document.createElement("div");
-                hourHand.classList.add("hand", "hour");
-                const minuteHand = document.createElement("div");
-                minuteHand.classList.add("hand", "minute");
-                const secondHand = document.createElement("div");
-                secondHand.classList.add("hand", "second");
-                clock.appendChild(hourHand);
-                clock.appendChild(minuteHand);
-                clock.appendChild(secondHand);
-                background.appendChild(clock);
-            }
-        }
-        
-        function updateClocks() {
-            const now = new Date();
-            const hours = now.getHours() % 12;
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-            
-            const hourDeg = (hours * 30) + (minutes * 0.5);
-            const minuteDeg = (minutes * 6) + (seconds * 0.1);
-            const secondDeg = seconds * 6;
-            
-            document.getElementById("hour").style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
-            document.getElementById("minute").style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
-            document.getElementById("second").style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
-            
-            document.querySelectorAll(".clock").forEach(clock => {
-                clock.children[0].style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
-                clock.children[1].style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
-                clock.children[2].style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
-            });
-        }
-        
-        createBackgroundClocks();
-        setInterval(updateClocks, 1000);
-        updateClocks();
-    </script>
     
 </body>
 </html>
