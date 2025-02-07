@@ -1,27 +1,93 @@
-<!-- Clickable World Map -->
+<!-- Financially Strong Countries UTC Clocks -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Map with Country and Continent Names</title>
+    <title>Financially Strong Countries UTC Clocks</title>
     <style>
         body {
-            text-align: center;
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
         }
-        img {
-            max-width: 100%;
-            height: auto;
+        .country-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #000;
+            padding: 10px;
+            cursor: pointer;
+            width: 200px;
+            height: 120px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #f4f4f4;
+        }
+        .flag {
+            width: 50px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 2px solid black;
+            box-shadow: 0px 0px 10px gray;
         }
     </style>
 </head>
 <body>
-    <h1>World Map with Country and Continent Names</h1>
-    
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" alt="World Map">
-    
-    <p>Continents: Africa, Antarctica, Asia, Europe, North America, Oceania, South America</p>
-    <p>Countries: United States, India, United Kingdom, China, Brazil, and many more.</p>
+    <script>
+        const countries = [
+            { name: "USA", flag: "https://flagcdn.com/w320/us.png", offset: 0 },
+            { name: "UK", flag: "https://flagcdn.com/w320/gb.png", offset: 0 },
+            { name: "Germany", flag: "https://flagcdn.com/w320/de.png", offset: 1 },
+            { name: "Japan", flag: "https://flagcdn.com/w320/jp.png", offset: 9 },
+            { name: "China", flag: "https://flagcdn.com/w320/cn.png", offset: 8 },
+            { name: "Switzerland", flag: "https://flagcdn.com/w320/ch.png", offset: 1 }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const body = document.body;
+            countries.forEach((country, index) => {
+                const div = document.createElement("div");
+                div.classList.add("country-box");
+                div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+                div.onclick = () => showClock(country);
+                body.appendChild(div);
+            });
+        });
+
+        function showClock(country) {
+            let modal = document.createElement("div");
+            modal.classList.add("modal");
+            modal.innerHTML = `<h2>${country.name} UTC Time</h2>
+                               <div id="clock"></div>
+                               <button onclick="this.parentElement.remove()">Close</button>`;
+            document.body.appendChild(modal);
+            updateClock(country.offset, modal.querySelector("#clock"));
+            modal.style.display = "block";
+        }
+
+        function updateClock(offset, element) {
+            function refreshClock() {
+                let now = new Date();
+                let utcTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000 + offset * 3600000);
+                element.innerText = utcTime.toISOString().substring(11, 19);
+            }
+            refreshClock();
+            setInterval(refreshClock, 1000);
+        }
+    </script>
 </body>
 </html>
