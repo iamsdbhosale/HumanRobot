@@ -1,4 +1,3 @@
-<!-- World Market Clocks -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,36 +24,96 @@
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
             min-width: 200px;
+            text-align: center;
         }
         h2 { margin-bottom: 10px; }
         .time { font-size: 1.5em; font-weight: bold; }
+        .analog-clock {
+            width: 100px;
+            height: 100px;
+            border: 5px solid white;
+            border-radius: 50%;
+            position: relative;
+            margin: 10px auto;
+        }
+        .hand {
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background: white;
+            top: 50%;
+            transform-origin: 100%;
+            transform: rotate(0deg);
+            transition: transform 0.5s ease-in-out;
+        }
+        .flag {
+            width: 30px;
+            height: 20px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <h1>Live World Market Clocks (UTC Based)</h1>
     <div class="clock-container">
         <div class="clock" id="ny">
+            <img class="flag" src="https://flagcdn.com/w40/us.png" alt="USA">
             <h2>New York (UTC -5)</h2>
+            <div class="analog-clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
             <div class="time"></div>
         </div>
         <div class="clock" id="london">
+            <img class="flag" src="https://flagcdn.com/w40/gb.png" alt="UK">
             <h2>London (UTC ±0)</h2>
+            <div class="analog-clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
             <div class="time"></div>
         </div>
         <div class="clock" id="frankfurt">
+            <img class="flag" src="https://flagcdn.com/w40/de.png" alt="Germany">
             <h2>Frankfurt (UTC +1)</h2>
+            <div class="analog-clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
             <div class="time"></div>
         </div>
         <div class="clock" id="tokyo">
+            <img class="flag" src="https://flagcdn.com/w40/jp.png" alt="Japan">
             <h2>Tokyo (UTC +9)</h2>
+            <div class="analog-clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
             <div class="time"></div>
         </div>
         <div class="clock" id="shanghai">
+            <img class="flag" src="https://flagcdn.com/w40/cn.png" alt="China">
             <h2>Shanghai (UTC +8)</h2>
+            <div class="analog-clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
             <div class="time"></div>
         </div>
         <div class="clock" id="mumbai">
+            <img class="flag" src="https://flagcdn.com/w40/in.png" alt="India">
             <h2>Mumbai (UTC +5:30)</h2>
+            <div class="analog-clock">
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
+            </div>
             <div class="time"></div>
         </div>
     </div>
@@ -75,6 +134,14 @@
                 const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
                 const localTime = new Date(utcTime + (offset * 3600000));
                 document.querySelector(`#${id} .time`).textContent = localTime.toLocaleTimeString();
+                
+                const hours = localTime.getHours() % 12;
+                const minutes = localTime.getMinutes();
+                const seconds = localTime.getSeconds();
+
+                document.querySelector(`#${id} .hour`).style.transform = `rotate(${(hours * 30) + (minutes / 2)}deg)`;
+                document.querySelector(`#${id} .minute`).style.transform = `rotate(${minutes * 6}deg)`;
+                document.querySelector(`#${id} .second`).style.transform = `rotate(${seconds * 6}deg)`;
             }
         }
         
