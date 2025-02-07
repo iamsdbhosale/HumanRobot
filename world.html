@@ -27,6 +27,7 @@
             font-size: 18px;
             font-weight: bold;
             background-color: #f4f4f4;
+            position: absolute;
         }
         .flag {
             width: 50px;
@@ -54,7 +55,8 @@
             { name: "Germany", flag: "https://flagcdn.com/w320/de.png", offset: 1 },
             { name: "Japan", flag: "https://flagcdn.com/w320/jp.png", offset: 9 },
             { name: "China", flag: "https://flagcdn.com/w320/cn.png", offset: 8 },
-            { name: "Switzerland", flag: "https://flagcdn.com/w320/ch.png", offset: 1 }
+            { name: "Switzerland", flag: "https://flagcdn.com/w320/ch.png", offset: 1 },
+            { name: "India", flag: "https://flagcdn.com/w320/in.png", offset: 5.5 }
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -63,6 +65,12 @@
                 const div = document.createElement("div");
                 div.classList.add("country-box");
                 div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+                div.style.left = `${50 + index * 220}px`;
+                div.style.top = "50px";
+                div.draggable = true;
+                div.ondragstart = (event) => {
+                    event.dataTransfer.setData("text/plain", event.target.id);
+                };
                 div.onclick = () => showClock(country);
                 body.appendChild(div);
             });
