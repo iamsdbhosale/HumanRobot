@@ -1,3 +1,4 @@
+<!-- Live World Market Clocks (UTC Based) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +29,7 @@
         }
         h2 { margin-bottom: 10px; }
         .time { font-size: 1.5em; font-weight: bold; }
+        .date { font-size: 1em; margin-top: 5px; }
         .flag {
             width: 30px;
             height: 20px;
@@ -42,31 +44,37 @@
             <img class="flag" src="https://flagcdn.com/w40/us.png" alt="USA">
             <h2>New York (UTC -5)</h2>
             <div class="time"></div>
+            <div class="date"></div>
         </div>
         <div class="clock" id="london">
             <img class="flag" src="https://flagcdn.com/w40/gb.png" alt="UK">
             <h2>London (UTC ±0)</h2>
             <div class="time"></div>
+            <div class="date"></div>
         </div>
         <div class="clock" id="frankfurt">
             <img class="flag" src="https://flagcdn.com/w40/de.png" alt="Germany">
             <h2>Frankfurt (UTC +1)</h2>
             <div class="time"></div>
+            <div class="date"></div>
         </div>
         <div class="clock" id="tokyo">
             <img class="flag" src="https://flagcdn.com/w40/jp.png" alt="Japan">
             <h2>Tokyo (UTC +9)</h2>
             <div class="time"></div>
+            <div class="date"></div>
         </div>
         <div class="clock" id="shanghai">
             <img class="flag" src="https://flagcdn.com/w40/cn.png" alt="China">
             <h2>Shanghai (UTC +8)</h2>
             <div class="time"></div>
+            <div class="date"></div>
         </div>
         <div class="clock" id="mumbai">
             <img class="flag" src="https://flagcdn.com/w40/in.png" alt="India">
             <h2>Mumbai (UTC +5:30)</h2>
             <div class="time"></div>
+            <div class="date"></div>
         </div>
     </div>
 
@@ -86,6 +94,7 @@
                 const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
                 const localTime = new Date(utcTime + (offset * 3600000));
                 document.querySelector(`#${id} .time`).textContent = localTime.toLocaleTimeString();
+                document.querySelector(`#${id} .date`).textContent = localTime.toDateString();
             }
         }
         
