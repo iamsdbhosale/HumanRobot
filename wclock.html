@@ -93,7 +93,7 @@
             for (const [id, offset] of Object.entries(timeZones)) {
                 const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
                 const localTime = new Date(utcTime + (offset * 3600000));
-                document.querySelector(`#${id} .time`).textContent = localTime.toLocaleTimeString();
+                document.querySelector(`#${id} .time`).textContent = localTime.toLocaleTimeString('en-GB', { hour12: false });
                 document.querySelector(`#${id} .date`).textContent = localTime.toDateString();
             }
         }
