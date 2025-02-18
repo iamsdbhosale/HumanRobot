@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
 <!--head Code for chrome app with install button starts-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Install App Popup</title>
+       <link rel="manifest" href="manifest.json">
     <style>
         /* Popup Styles */
         #installPopup {
@@ -45,7 +43,6 @@
             color: white;
         }
     </style>
-    
 <!--Code for chrome app ends-->
     
     <meta charset="UTF-8">
@@ -133,6 +130,17 @@
 </div>
 
 <script>
+    let deferredPrompt;
+    
+    // Listen for the beforeinstallprompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        deferredPrompt = e;
+        // Show the custom install popup
+        showPopup();
+    });
+
     // Function to show the popup
     function showPopup() {
         document.getElementById('installPopup').style.display = 'flex';
@@ -145,7 +153,21 @@
 
     // Function to install the app
     function installApp() {
-        alert('Installing the app...');
+        if (deferredPrompt) {
+            // Show the install prompt
+            deferredPrompt.prompt();
+            
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+                console.log(choiceResult.outcome);
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;
+            });
+        }
         cancelPopup(); // Close the popup after clicking install
     }
 </script>
