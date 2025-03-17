@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Page Gallery</title>
+    <title>HTML Page Gallery with Previews</title>
     <style>
         * {
             box-sizing: border-box;
@@ -25,7 +25,7 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 15px;
             max-width: 1000px;
             margin: auto;
@@ -46,10 +46,10 @@
             transform: scale(1.05);
         }
 
-        .gallery img {
+        .gallery iframe {
             width: 100%;
-            height: 150px;
-            object-fit: cover;
+            height: 200px;
+            border: none;
         }
 
         .gallery .title {
@@ -57,35 +57,37 @@
             font-size: 16px;
             font-weight: bold;
             text-align: center;
+            background: #007bff;
+            color: #fff;
         }
     </style>
 </head>
 <body>
 
-    <h1>HTML Page Gallery</h1>
+    <h1>HTML Page Gallery with Live Previews</h1>
     <div class="gallery">
-        <a href="x.html">
-            <img src="preview1.jpg" alt="Page 1 Preview">
+        <a href="x.html" target="_blank">
+            <iframe src="x.html"></iframe>
             <div class="title">Page 1</div>
         </a>
-        <a href="x1.html">
-            <img src="preview2.jpg" alt="Page 2 Preview">
+        <a href="x1.html" target="_blank">
+            <iframe src="x1.html"></iframe>
             <div class="title">Page 2</div>
         </a>
-        <a href="x2.html">
-            <img src="preview3.jpg" alt="Page 3 Preview">
+        <a href="x2.html" target="_blank">
+            <iframe src="x2.html"></iframe>
             <div class="title">Page 3</div>
         </a>
-        <a href="x3.html">
-            <img src="preview4.jpg" alt="Page 4 Preview">
+        <a href="x3.html" target="_blank">
+            <iframe src="x3.html"></iframe>
             <div class="title">Page 4</div>
         </a>
-        <a href="page5.html">
-            <img src="preview5.jpg" alt="Page 5 Preview">
+        <a href="page5.html" target="_blank">
+            <iframe src="page5.html"></iframe>
             <div class="title">Page 5</div>
         </a>
-        <a href="page6.html">
-            <img src="preview6.jpg" alt="Page 6 Preview">
+        <a href="page6.html" target="_blank">
+            <iframe src="page6.html"></iframe>
             <div class="title">Page 6</div>
         </a>
     </div>
