@@ -33,22 +33,30 @@
 
         .gallery a {
             text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            padding: 15px;
+            color: #333;
+            background-color: #fff;
             border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.3s;
+            overflow: hidden;
+            display: block;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .gallery a:hover {
-            background-color: #0056b3;
             transform: scale(1.05);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .gallery .title {
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
@@ -56,12 +64,30 @@
 
     <h1>HTML Page Gallery</h1>
     <div class="gallery">
-        <a href="x.html">Page 1</a>
-        <a href="x1.html">Page 2</a>
-        <a href="x2.html">Page 3</a>
-        <a href="x3.html">Page 4</a>
-        <a href="page5.html">Page 5</a>
-        <a href="page6.html">Page 6</a>
+        <a href="page1.html">
+            <img src="preview1.jpg" alt="Page 1 Preview">
+            <div class="title">Page 1</div>
+        </a>
+        <a href="page2.html">
+            <img src="preview2.jpg" alt="Page 2 Preview">
+            <div class="title">Page 2</div>
+        </a>
+        <a href="page3.html">
+            <img src="preview3.jpg" alt="Page 3 Preview">
+            <div class="title">Page 3</div>
+        </a>
+        <a href="page4.html">
+            <img src="preview4.jpg" alt="Page 4 Preview">
+            <div class="title">Page 4</div>
+        </a>
+        <a href="page5.html">
+            <img src="preview5.jpg" alt="Page 5 Preview">
+            <div class="title">Page 5</div>
+        </a>
+        <a href="page6.html">
+            <img src="preview6.jpg" alt="Page 6 Preview">
+            <div class="title">Page 6</div>
+        </a>
     </div>
 
 </body>
