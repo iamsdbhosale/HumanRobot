@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Page Gallery - Full Page Mode</title>
+    <title>HTML Page Gallery - Pagination</title>
     <style>
         * {
             box-sizing: border-box;
@@ -39,12 +39,12 @@
             border: none;
         }
 
-        .navigation {
+        .pagination {
             margin-top: 15px;
         }
 
-        button {
-            padding: 10px 20px;
+        .pagination button {
+            padding: 10px 15px;
             font-size: 16px;
             margin: 5px;
             cursor: pointer;
@@ -55,8 +55,13 @@
             transition: 0.3s;
         }
 
-        button:hover {
+        .pagination button:hover {
             background: #0056b3;
+        }
+
+        .pagination button.active {
+            background: #0056b3;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -65,32 +70,60 @@
     <div class="iframe-container">
         <iframe id="pageFrame" src="x.html"></iframe>
     </div>
-    <div class="navigation">
-        <button onclick="prevPage()">Previous Page</button>
-        <button onclick="nextPage()">Next Page</button>
-    </div>
+    <div class="pagination" id="pagination"></div>
 
     <script>
-        const pages = ["x.html", "x1.html", "x2.html", "x3.html", "page5.html", "page6.html"];
+        const pages = ["x.html", "x1.html", "x2.html", "x3.html", "page5.html", "page6.html", "page7.html", "page8.html", "page9.html", "page10.html", "page11.html"];
         let currentIndex = 0;
+        let startPage = 0;
+        const maxPagesToShow = 5;
 
         function updateFrame() {
             document.getElementById("pageFrame").src = pages[currentIndex];
+            updatePagination();
         }
 
-        function nextPage() {
-            if (currentIndex < pages.length - 1) {
-                currentIndex++;
-                updateFrame();
+        function goToPage(index) {
+            currentIndex = index;
+            updateFrame();
+        }
+
+        function updatePagination() {
+            const paginationDiv = document.getElementById("pagination");
+            paginationDiv.innerHTML = "";
+
+            if (startPage > 0) {
+                const prevSetBtn = document.createElement("button");
+                prevSetBtn.innerText = "< Prev";
+                prevSetBtn.onclick = () => {
+                    startPage = Math.max(0, startPage - maxPagesToShow);
+                    updatePagination();
+                };
+                paginationDiv.appendChild(prevSetBtn);
+            }
+
+            for (let i = startPage; i < Math.min(startPage + maxPagesToShow, pages.length); i++) {
+                const btn = document.createElement("button");
+                btn.innerText = i + 1;
+                btn.onclick = () => goToPage(i);
+                if (i === currentIndex) {
+                    btn.classList.add("active");
+                }
+                paginationDiv.appendChild(btn);
+            }
+
+            if (startPage + maxPagesToShow < pages.length) {
+                const nextSetBtn = document.createElement("button");
+                nextSetBtn.innerText = "Next >";
+                nextSetBtn.onclick = () => {
+                    startPage = Math.min(pages.length - maxPagesToShow, startPage + maxPagesToShow);
+                    updatePagination();
+                };
+                paginationDiv.appendChild(nextSetBtn);
             }
         }
 
-        function prevPage() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateFrame();
-            }
-        }
+        updatePagination();
     </script>
 </body>
 </html>
