@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog cum Digital Clock</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .digital-clock {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .timezone {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .clock {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            background: url('HumanRobot_Spinner.gif') no-repeat center center/cover;
+        }
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translateX(-50%) rotate(0deg);
+           /* background: green;*/
+        }
+        .hour {
+            width: 6px;
+            height: 50px;
+            background: blue;
+        }
+        .minute {
+            width: 4px;
+            height: 70px;
+            background: Green;
+        }
+        .second {
+            width: 2px;
+            height: 90px;
+            background: red;
+        }
+        .numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+        .numbers div {
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="digital-clock" id="digital-clock">00:00:00</div>
+    <div class="timezone">{IST (UTC+5:30)}</div>
+    <div class="clock">
+      <!---  <div class="numbers">
+            <div style="top: 10%; left: 50%">XII</div>
+            <div style="top: 20%; left: 80%">I</div>
+            <div style="top: 35%; left: 92%">II</div>
+            <div style="top: 50%; left: 95%">III</div>
+            <div style="top: 65%; left: 92%">IV</div>
+            <div style="top: 80%; left: 80%">V</div>
+            <div style="top: 90%; left: 50%">VI</div>
+            <div style="top: 80%; left: 20%">VII</div>
+            <div style="top: 65%; left: 8%">VIII</div>
+            <div style="top: 50%; left: 5%">IX</div>
+            <div style="top: 35%; left: 8%">X</div>
+            <div style="top: 20%; left: 20%">XI</div>
+        </div> -->
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+        <div class="hand second" id="second"></div>
+    </div>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            const hourDeg = ((hours % 12) * 30) + (minutes * 0.5);
+            const minuteDeg = (minutes * 6) + (seconds * 0.1);
+            const secondDeg = seconds * 6;
+            
+            document.getElementById("hour").style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.getElementById("minute").style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.getElementById("second").style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+            
+            document.getElementById("digital-clock").textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
