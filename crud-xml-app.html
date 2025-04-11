@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CRUD XML App with Login</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .hidden { display: none; }
+    input, button { margin: 5px; }
+  </style>
+</head>
+<body>
+
+  <!-- Login Page -->
+  <div id="loginPage">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+    <p id="loginMessage"></p>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="hidden">
+    <h2>CRUD Dashboard</h2>
+    <input type="text" id="name" placeholder="Name">
+    <input type="text" id="email" placeholder="Email">
+    <button onclick="addRecord()">Add</button>
+    <button onclick="updateRecord()">Update</button>
+    <br><br>
+    <table border="1" id="recordTable">
+      <tr><th>Name</th><th>Email</th><th>Actions</th></tr>
+    </table>
+    <br>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    // Hardcoded login credentials
+    const validUsername = "admin";
+    const validPassword = "1234";
+
+    // Sample XML structure
+    let xmlData = `
+      <records>
+      </records>
+    `;
+
+    let parser = new DOMParser();
+    let serializer = new XMLSerializer();
+    let selectedIndex = -1;
+
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      if (user === validUsername && pass === validPassword) {
+        document.getElementById("loginPage").classList.add("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
+        renderTable();
+      } else {
+        document.getElementById("loginMessage").innerText = "Invalid credentials!";
+      }
+    }
+
+    function logout() {
+      document.getElementById("dashboard").classList.add("hidden");
+      document.getElementById("loginPage").classList.remove("hidden");
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("loginMessage").innerText = "";
+    }
+
+    function addRecord() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      if (!name || !email) return alert("Please enter both fields.");
+
+      const xmlDoc = parser.parseFromString(xmlData, "application/xml");
+      const newRecord = xmlDoc.createElement("record");
+
+      const nameNode = xmlDoc.createElement("name");
+      nameNode.textContent = name;
+
+      const emailNode = xmlDoc.createElement("email");
+      emailNode.textContent = email;
+
+      newRecord.appendChild(nameNode);
+      newRecord.appendChild(emailNode);
+      xmlDoc.documentElement.appendChild(newRecord);
+
+      xmlData = serializer.serializeToString(xmlDoc);
+      renderTable();
+
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+    }
+
+    function renderTable() {
+      const xmlDoc = parser.parseFromString(xmlData, "application/xml");
+      const records = xmlDoc.getElementsByTagName("record");
+
+      const table = document.getElementById("recordTable");
+      table.innerHTML = `<tr><th>Name</th><th>Email</th><th>Actions</th></tr>`;
+
+      Array.from(records).forEach((record, index) => {
+        const name = record.getElementsByTagName("name")[0].textContent;
+        const email = record.getElementsByTagName("email")[0].textContent;
+
+        const row = table.insertRow();
+        row.innerHTML = `
+          <td>${name}</td>
+          <td>${email}</td>
+          <td>
+            <button onclick="editRecord(${index})">Edit</button>
+            <button onclick="deleteRecord(${index})">Delete</button>
+          </td>
+        `;
+      });
+    }
+
+    function editRecord(index) {
+      const xmlDoc = parser.parseFromString(xmlData, "application/xml");
+      const record = xmlDoc.getElementsByTagName("record")[index];
+
+      const name = record.getElementsByTagName("name")[0].textContent;
+      const email = record.getElementsByTagName("email")[0].textContent;
+
+      document.getElementById("name").value = name;
+      document.getElementById("email").value = email;
+      selectedIndex = index;
+    }
+
+    function updateRecord() {
+      if (selectedIndex < 0) return alert("Please select a record to update.");
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+
+      const xmlDoc = parser.parseFromString(xmlData, "application/xml");
+      const record = xmlDoc.getElementsByTagName("record")[selectedIndex];
+
+      record.getElementsByTagName("name")[0].textContent = name;
+      record.getElementsByTagName("email")[0].textContent = email;
+
+      xmlData = serializer.serializeToString(xmlDoc);
+      renderTable();
+
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      selectedIndex = -1;
+    }
+
+    function deleteRecord(index) {
+      const xmlDoc = parser.parseFromString(xmlData, "application/xml");
+      const records = xmlDoc.getElementsByTagName("record");
+
+      const toDelete = records[index];
+      xmlDoc.documentElement.removeChild(toDelete);
+
+      xmlData = serializer.serializeToString(xmlDoc);
+      renderTable();
+    }
+  </script>
+</body>
+</html>
+<!-- 
+Login with:
+Username: admin
+Password: 1234
+-->
