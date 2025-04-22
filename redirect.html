@@ -20,10 +20,120 @@
       color: #333;
     }
   </style>
+
+  <!-- clock style starts-->
+      <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .digital-clock {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .date {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .timezone {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .clock {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            background: url('HumanRobot.jpg') no-repeat center center/cover;
+        }
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translateX(-50%) rotate(0deg);
+           /* background: blue;*/
+        }
+        .hour {
+            width: 6px;
+            height: 50px;
+             background: blue;
+        }
+        .minute {
+            width: 4px;
+            height: 70px;
+             background: green;
+        }
+        .second {
+            width: 2px;
+            height: 90px;
+            background: red;
+        }
+        .numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+        .numbers div {
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+  <!-- clock style ends-->
 </head>
 <body>
   <div class="message">
-    You will be redirected to the homepage in 15 seconds...
+    With Courtesy : <br>
+    You will be redirected to the homepage in 15 seconds...<br>
+
+    <!-- Clock Code starts-->
+        <div class="digital-clock" id="digital-clock">00:00:00</div>
+    <div class="timezone">{IST (UTC+5:30)}</div>
+    <div class="date" id="date">DD-MM-YYYY</div>
+    
+    <div class="clock">
+
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+        <div class="hand second" id="second"></div>
+    </div>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            const hourDeg = ((hours % 12) * 30) + (minutes * 0.5);
+            const minuteDeg = (minutes * 6) + (seconds * 0.1);
+            const secondDeg = seconds * 6;
+            
+            document.getElementById("hour").style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.getElementById("minute").style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.getElementById("second").style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+            
+            document.getElementById("digital-clock").textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            const day = now.getDate().toString().padStart(2, '0');
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const year = now.getFullYear();
+            document.getElementById("date").textContent = `${day}-${month}-${year}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+    
   </div>
 </body>
 </html>
