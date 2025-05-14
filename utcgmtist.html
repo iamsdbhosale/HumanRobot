@@ -1,61 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Multi Timezone Digital Clocks</title>
+  <title>World Clocks - GMT, IST, UTC</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding-top: 50px;
-      background: #f0f0f0;
+      padding: 30px;
+      background: #e9ecef;
     }
     .clock-container {
-      margin: 20px;
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
       display: inline-block;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      margin: 20px;
+      padding: 20px 30px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .flag {
+      font-size: 2em;
+    }
+    .label {
+      font-size: 1.5em;
+      margin-top: 10px;
     }
     .time {
       font-size: 2em;
-      color: #333;
+      color: #2c3e50;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
 
   <div class="clock-container">
-    <h2>GMT</h2>
+    <div class="flag">🇬🇧</div>
+    <div class="label">GMT (UK)</div>
     <div id="gmt" class="time">--:--:--</div>
   </div>
 
   <div class="clock-container">
-    <h2>IST (India)</h2>
+    <div class="flag">🇮🇳</div>
+    <div class="label">IST (India)</div>
     <div id="ist" class="time">--:--:--</div>
   </div>
 
   <div class="clock-container">
-    <h2>UTC</h2>
+    <div class="flag">🌐</div>
+    <div class="label">UTC</div>
     <div id="utc" class="time">--:--:--</div>
   </div>
 
   <script>
     function updateClocks() {
-      const nowUTC = new Date();
+      const now = new Date();
 
       // UTC Time
-      const utcTime = nowUTC.toISOString().substr(11, 8);
-      document.getElementById("utc").textContent = utcTime;
+      const utc = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
+      document.getElementById("utc").textContent = utc.toTimeString().slice(0, 8);
 
       // GMT Time (same as UTC)
-      document.getElementById("gmt").textContent = utcTime;
+      const gmt = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+      document.getElementById("gmt").textContent = gmt.toTimeString().slice(0, 8);
 
-      // IST Time (UTC + 5:30)
-      const istOffset = 5.5 * 60 * 60 * 1000;
-      const istTime = new Date(nowUTC.getTime() + istOffset);
-      const istString = istTime.toTimeString().substr(0, 8);
-      document.getElementById("ist").textContent = istString;
+      // IST Time (UTC+5:30)
+      const ist = new Date(now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+      document.getElementById("ist").textContent = ist.toTimeString().slice(0, 8);
     }
 
     setInterval(updateClocks, 1000);
