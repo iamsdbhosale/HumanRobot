@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Analog + Digital Clocks (IST, GMT, UTC)</title>
+  <title>Analog + Digital Clocks</title>
   <style>
     :root {
       --bg-color: #282c34;
@@ -57,21 +57,10 @@
       transform-origin: bottom;
       transform: translateX(-50%) rotate(0deg);
     }
-    .hour {
-      width: 6px;
-      height: 50px;
-      background: blue;
-    }
-    .minute {
-      width: 4px;
-      height: 70px;
-      background: green;
-    }
-    .second {
-      width: 2px;
-      height: 90px;
-      background: red;
-    }
+    .hour { width: 6px; height: 50px; background: blue; }
+    .minute { width: 4px; height: 70px; background: green; }
+    .second { width: 2px; height: 90px; background: red; }
+
     #themeToggle {
       position: fixed;
       top: 20px;
@@ -94,7 +83,7 @@
 <body>
   <button id="themeToggle">Toggle Theme</button>
 
-  <!-- IST Clock -->
+  <!-- IST -->
   <div class="zone-container">
     <div class="digital-clock" id="digital-ist">00:00:00</div>
     <div class="timezone">🇮🇳 IST (UTC+5:30)</div>
@@ -106,7 +95,7 @@
     </div>
   </div>
 
-  <!-- GMT Clock -->
+  <!-- GMT -->
   <div class="zone-container">
     <div class="digital-clock" id="digital-gmt">00:00:00</div>
     <div class="timezone">🇬🇧 GMT (UTC+0)</div>
@@ -118,7 +107,7 @@
     </div>
   </div>
 
-  <!-- UTC Clock -->
+  <!-- UTC -->
   <div class="zone-container">
     <div class="digital-clock" id="digital-utc">00:00:00</div>
     <div class="timezone">🌐 UTC</div>
@@ -131,7 +120,7 @@
   </div>
 
   <!-- Ticking Sound -->
-  <audio id="tickSound" src="https://www.soundjay.com/clock/sounds/clock-ticking-1.mp3" preload="auto"></audio>
+  <audio id="tickSound" src="https://www.soundjay.com/clock/sounds/clock-ticking-2.mp3" preload="auto"></audio>
 
   <script>
     function updateTimeZone(zoneId, timeZone) {
@@ -163,18 +152,17 @@
       updateTimeZone('gmt', 'Etc/GMT');
       updateTimeZone('utc', 'UTC');
 
-      document.getElementById('tickSound').play().catch(() => {});
+      const tick = document.getElementById('tickSound');
+      tick.currentTime = 0;
+      tick.play().catch(() => {});
     }
 
     setInterval(updateAllClocks, 1000);
     updateAllClocks();
 
-    // Theme toggle
-    const toggleBtn = document.getElementById("themeToggle");
-    toggleBtn.addEventListener("click", () => {
+    document.getElementById("themeToggle").addEventListener("click", () => {
       document.body.classList.toggle("light");
     });
   </script>
 </body>
-  </html>
-  
+</html>
