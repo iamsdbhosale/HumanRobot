@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi Timezone Digital Clocks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      background: #f0f0f0;
+    }
+    .clock-container {
+      margin: 20px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .time {
+      font-size: 2em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="clock-container">
+    <h2>GMT</h2>
+    <div id="gmt" class="time">--:--:--</div>
+  </div>
+
+  <div class="clock-container">
+    <h2>IST (India)</h2>
+    <div id="ist" class="time">--:--:--</div>
+  </div>
+
+  <div class="clock-container">
+    <h2>UTC</h2>
+    <div id="utc" class="time">--:--:--</div>
+  </div>
+
+  <script>
+    function updateClocks() {
+      const nowUTC = new Date();
+
+      // UTC Time
+      const utcTime = nowUTC.toISOString().substr(11, 8);
+      document.getElementById("utc").textContent = utcTime;
+
+      // GMT Time (same as UTC)
+      document.getElementById("gmt").textContent = utcTime;
+
+      // IST Time (UTC + 5:30)
+      const istOffset = 5.5 * 60 * 60 * 1000;
+      const istTime = new Date(nowUTC.getTime() + istOffset);
+      const istString = istTime.toTimeString().substr(0, 8);
+      document.getElementById("ist").textContent = istString;
+    }
+
+    setInterval(updateClocks, 1000);
+    updateClocks();
+  </script>
+</body>
+</html>
