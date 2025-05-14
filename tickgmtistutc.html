@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analog + Digital Clocks (IST, GMT, UTC)</title>
+  <style>
+    :root {
+      --bg-color: #282c34;
+      --text-color: white;
+    }
+    body.light {
+      --bg-color: #f0f0f0;
+      --text-color: #111;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      gap: 40px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .zone-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .digital-clock {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .date {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .timezone {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .clock {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      position: relative;
+      background: url('HumanRobot.jpg') no-repeat center center/cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom;
+      transform: translateX(-50%) rotate(0deg);
+    }
+    .hour {
+      width: 6px;
+      height: 50px;
+      background: blue;
+    }
+    .minute {
+      width: 4px;
+      height: 70px;
+      background: green;
+    }
+    .second {
+      width: 2px;
+      height: 90px;
+      background: red;
+    }
+    #themeToggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: 2px solid var(--text-color);
+      padding: 8px 16px;
+      color: var(--text-color);
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    #themeToggle:hover {
+      background: var(--text-color);
+      color: var(--bg-color);
+    }
+  </style>
+</head>
+<body>
+  <button id="themeToggle">Toggle Theme</button>
+
+  <!-- IST Clock -->
+  <div class="zone-container">
+    <div class="digital-clock" id="digital-ist">00:00:00</div>
+    <div class="timezone">🇮🇳 IST (UTC+5:30)</div>
+    <div class="date" id="date-ist">DD-MM-YYYY</div>
+    <div class="clock">
+      <div class="hand hour" id="hour-ist"></div>
+      <div class="hand minute" id="minute-ist"></div>
+      <div class="hand second" id="second-ist"></div>
+    </div>
+  </div>
+
+  <!-- GMT Clock -->
+  <div class="zone-container">
+    <div class="digital-clock" id="digital-gmt">00:00:00</div>
+    <div class="timezone">🇬🇧 GMT (UTC+0)</div>
+    <div class="date" id="date-gmt">DD-MM-YYYY</div>
+    <div class="clock">
+      <div class="hand hour" id="hour-gmt"></div>
+      <div class="hand minute" id="minute-gmt"></div>
+      <div class="hand second" id="second-gmt"></div>
+    </div>
+  </div>
+
+  <!-- UTC Clock -->
+  <div class="zone-container">
+    <div class="digital-clock" id="digital-utc">00:00:00</div>
+    <div class="timezone">🌐 UTC</div>
+    <div class="date" id="date-utc">DD-MM-YYYY</div>
+    <div class="clock">
+      <div class="hand hour" id="hour-utc"></div>
+      <div class="hand minute" id="minute-utc"></div>
+      <div class="hand second" id="second-utc"></div>
+    </div>
+  </div>
+
+  <!-- Ticking Sound -->
+  <audio id="tickSound" src="https://www.soundjay.com/clock/sounds/clock-ticking-1.mp3" preload="auto"></audio>
+
+  <script>
+    function updateTimeZone(zoneId, timeZone) {
+      const now = new Date(new Date().toLocaleString("en-US", { timeZone }));
+
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      const hourDeg = ((hours % 12) * 30) + (minutes * 0.5);
+      const minuteDeg = (minutes * 6) + (seconds * 0.1);
+      const secondDeg = seconds * 6;
+
+      document.getElementById(`hour-${zoneId}`).style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+      document.getElementById(`minute-${zoneId}`).style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+      document.getElementById(`second-${zoneId}`).style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+
+      document.getElementById(`digital-${zoneId}`).textContent =
+        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      const day = now.getDate().toString().padStart(2, '0');
+      const month = (now.getMonth() + 1).toString().padStart(2, '0');
+      const year = now.getFullYear();
+      document.getElementById(`date-${zoneId}`).textContent = `${day}-${month}-${year}`;
+    }
+
+    function updateAllClocks() {
+      updateTimeZone('ist', 'Asia/Kolkata');
+      updateTimeZone('gmt', 'Etc/GMT');
+      updateTimeZone('utc', 'UTC');
+
+      document.getElementById('tickSound').play().catch(() => {});
+    }
+
+    setInterval(updateAllClocks, 1000);
+    updateAllClocks();
+
+    // Theme toggle
+    const toggleBtn = document.getElementById("themeToggle");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+    });
+  </script>
+</body>
+  </html>
+  
