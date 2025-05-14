@@ -6,28 +6,33 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 30px;
-      background: #e9ecef;
+      background: #f4f4f4;
+      padding: 20px;
     }
     .clock-container {
       display: inline-block;
       margin: 20px;
-      padding: 20px 30px;
-      background-color: #fff;
+      padding: 20px;
+      background: white;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     .flag {
       font-size: 2em;
     }
     .label {
-      font-size: 1.5em;
-      margin-top: 10px;
-    }
-    .time {
-      font-size: 2em;
-      color: #2c3e50;
+      font-size: 1.3em;
       margin-top: 5px;
+    }
+    .digital {
+      font-size: 1.8em;
+      color: #2c3e50;
+      margin: 10px 0;
+    }
+    canvas {
+      background: #fff;
+      border-radius: 50%;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -36,36 +41,117 @@
   <div class="clock-container">
     <div class="flag">🇬🇧</div>
     <div class="label">GMT (UK)</div>
-    <div id="gmt" class="time">--:--:--</div>
+    <div id="digital-gmt" class="digital">--:--:--</div>
+    <canvas id="analog-gmt" width="150" height="150"></canvas>
   </div>
 
   <div class="clock-container">
     <div class="flag">🇮🇳</div>
     <div class="label">IST (India)</div>
-    <div id="ist" class="time">--:--:--</div>
+    <div id="digital-ist" class="digital">--:--:--</div>
+    <canvas id="analog-ist" width="150" height="150"></canvas>
   </div>
 
   <div class="clock-container">
     <div class="flag">🌐</div>
     <div class="label">UTC</div>
-    <div id="utc" class="time">--:--:--</div>
+    <div id="digital-utc" class="digital">--:--:--</div>
+    <canvas id="analog-utc" width="150" height="150"></canvas>
   </div>
 
   <script>
+    function getTimeInZone(timeZone) {
+      return new Date(new Date().toLocaleString('en-US', { timeZone }));
+    }
+
+    function formatTime(date) {
+      return date.toTimeString().slice(0, 8);
+    }
+
+    function drawAnalogClock(canvasId, time) {
+      const ctx = document.getElementById(canvasId).getContext("2d");
+      const radius = 75;
+      ctx.clearRect(0, 0, 150, 150);
+      ctx.translate(radius, radius);
+
+      // Draw clock face
+      ctx.beginPath();
+      ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
+      ctx.fillStyle = "#f9f9f9";
+      ctx.fill();
+      ctx.strokeStyle = "#333";
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      // Numbers
+      ctx.font = "14px Arial";
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
+      for (let num = 1; num <= 12; num++) {
+        let angle = num * Math.PI / 6;
+        ctx.rotate(angle);
+        ctx.translate(0, -radius + 20);
+        ctx.rotate(-angle);
+        ctx.fillText(num.toString(), 0, 0);
+        ctx.rotate(angle);
+        ctx.translate(0, radius - 20);
+        ctx.rotate(-angle);
+      }
+
+      // Get time
+      const hour = time.getHours() % 12;
+      const minute = time.getMinutes();
+      const second = time.getSeconds();
+
+      // Hour hand
+      let hourAngle = (hour + minute / 60) * Math.PI / 6;
+      ctx.beginPath();
+      ctx.rotate(hourAngle);
+      ctx.moveTo(0, 5);
+      ctx.lineTo(0, -30);
+      ctx.strokeStyle = "#333";
+      ctx.lineWidth = 6;
+      ctx.stroke();
+      ctx.rotate(-hourAngle);
+
+      // Minute hand
+      let minAngle = (minute + second / 60) * Math.PI / 30;
+      ctx.beginPath();
+      ctx.rotate(minAngle);
+      ctx.moveTo(0, 5);
+      ctx.lineTo(0, -45);
+      ctx.strokeStyle = "#555";
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      ctx.rotate(-minAngle);
+
+      // Second hand
+      let secAngle = second * Math.PI / 30;
+      ctx.beginPath();
+      ctx.rotate(secAngle);
+      ctx.moveTo(0, 10);
+      ctx.lineTo(0, -50);
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.rotate(-secAngle);
+
+      // Reset transform
+      ctx.translate(-radius, -radius);
+    }
+
     function updateClocks() {
-      const now = new Date();
+      const gmt = getTimeInZone('Etc/GMT');
+      const ist = getTimeInZone('Asia/Kolkata');
+      const utc = getTimeInZone('UTC');
 
-      // UTC Time
-      const utc = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
-      document.getElementById("utc").textContent = utc.toTimeString().slice(0, 8);
+      document.getElementById('digital-gmt').textContent = formatTime(gmt);
+      document.getElementById('digital-ist').textContent = formatTime(ist);
+      document.getElementById('digital-utc').textContent = formatTime(utc);
 
-      // GMT Time (same as UTC)
-      const gmt = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
-      document.getElementById("gmt").textContent = gmt.toTimeString().slice(0, 8);
-
-      // IST Time (UTC+5:30)
-      const ist = new Date(now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
-      document.getElementById("ist").textContent = ist.toTimeString().slice(0, 8);
+      drawAnalogClock('analog-gmt', gmt);
+      drawAnalogClock('analog-ist', ist);
+      drawAnalogClock('analog-utc', utc);
     }
 
     setInterval(updateClocks, 1000);
