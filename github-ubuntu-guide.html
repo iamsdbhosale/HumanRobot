@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connect Ubuntu to GitHub - Step-by-Step Guide</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    code {
+      background: #eee;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    .step {
+      margin-bottom: 2rem;
+    }
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffeeba;
+      padding: 1em;
+      margin: 1em 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>How to Connect Ubuntu Linux System with GitHub</h1>
+
+  <div class="step">
+    <h2>✅ Prerequisites</h2>
+    <ul>
+      <li>Git is installed</li>
+      <li>You have a GitHub account</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h2>🔧 Step 1: Install Git</h2>
+    <pre><code>sudo apt update
+sudo apt install git</code></pre>
+  </div>
+
+  <div class="step">
+    <h2>✏️ Step 2: Configure Git</h2>
+    <pre><code>git config --global user.name "Your Name"
+git config --global user.email "your_email@example.com"
+git config --list</code></pre>
+  </div>
+
+  <div class="step">
+    <h2>🔐 Step 3: Generate SSH Key</h2>
+    <pre><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code></pre>
+    <p>Press Enter to accept defaults and optionally enter a passphrase.</p>
+  </div>
+
+  <div class="step">
+    <h2>📂 Step 4: Add SSH Key to Agent</h2>
+    <pre><code>eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519</code></pre>
+  </div>
+
+  <div class="step">
+    <h2>📋 Step 5: Copy SSH Key</h2>
+    <pre><code>cat ~/.ssh/id_ed25519.pub</code></pre>
+    <p>Copy and add it to GitHub → Settings → SSH and GPG Keys → New SSH key.</p>
+  </div>
+
+  <div class="step">
+    <h2>✅ Step 6: Test SSH</h2>
+    <pre><code>ssh -T git@github.com</code></pre>
+    <p>Expected: <code>Hi username! You've successfully authenticated.</code></p>
+  </div>
+
+  <div class="step">
+    <h2>📂 Step 7: Clone or Push</h2>
+    <pre><code>git clone git@github.com:your-username/your-repo.git</code></pre>
+
+    <p>Or initialize and push:</p>
+    <pre><code>git init
+git remote add origin git@github.com:your-username/your-repo.git
+git add .
+git commit -m "Initial commit"
+git push -u origin main</code></pre>
+  </div>
+
+  <div class="step">
+    <h2>🐞 Common Error: <code>src refspec master does not match any</code></h2>
+    <div class="note">
+      <strong>Cause:</strong> No commit made, and no <code>master</code> branch exists.<br/>
+      <strong>Fix:</strong>
+      <pre><code>git add .
+git commit -m "Initial commit"
+git branch  # Check if branch is 'main'
+git push -u origin main</code></pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <h2>🔐 Error: Password Authentication Removed (HTTPS)</h2>
+    <div class="note">
+      <strong>Fix:</strong> Switch to SSH remote instead of HTTPS:
+      <pre><code>git remote set-url origin git@github.com:username/repo.git</code></pre>
+      Then push again:
+      <pre><code>git push -u origin main</code></pre>
+    </div>
+  </div>
+
+</body>
+</html>
