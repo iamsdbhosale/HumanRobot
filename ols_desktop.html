@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>✵ One-Liner Status Creator — Web∞</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d0d0d;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .header-symbol {
+      font-size: 4rem;
+      color: #9df9ef;
+      text-shadow: 0 0 12px #00ffff;
+      margin-bottom: 10px;
+    }
+    .container {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      width: 90%;
+      max-width: 550px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      background: rgba(255,255,255,0.08);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      padding: 10px;
+      resize: none;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 15px;
+      background: linear-gradient(90deg, #00ccff, #9900ff);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      margin-right: 10px;
+    }
+    button:hover {
+      opacity: 0.85;
+    }
+    .preview-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: #111;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .preview {
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 10px;
+      min-height: 80px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      font-style: italic;
+      text-align: center;
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+    }
+    .signature {
+      font-size: 0.85rem;
+      color: #bbb;
+      margin-top: 12px;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="header-symbol">✵</div>
+  <div class="container">
+    <textarea id="statusInput" placeholder="Write one-liner status..."></textarea>
+    <br />
+    <button onclick="simulateShare()">Simulate Share</button>
+    <button onclick="downloadAsPNG()">Download as PNG</button>
+
+    <div class="preview-wrapper" id="previewWrapper">
+      <div class="header-symbol" style="font-size: 3rem; margin: 5px;">✵</div>
+      <div class="preview" id="preview">Your one-liner preview will appear here...</div>
+      <div class="signature">— Web∞ | #tracgrggl + #iesefosp❣️ | Human 😊 Robot 🤖 <br> | ✵ | Ψ | ₹ | $ | USD₮ | Ξ | ₿</div>
+    </div>
+  </div>
+
+  <script>
+    function simulateShare() {
+      const text = document.getElementById('statusInput').value.trim();
+      const preview = document.getElementById('preview');
+      if (text === '') {
+        preview.textContent = 'Please write something before sharing!';
+      } else {
+        preview.textContent = `${text}`;
+      }
+    }
+
+    function downloadAsPNG() {
+      const previewWrapper = document.getElementById('previewWrapper');
+      html2canvas(previewWrapper, {
+        backgroundColor: '#0d0d0d',
+        scale: 3, // High quality for all platforms
+        useCORS: true
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'one-liner-status.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>
