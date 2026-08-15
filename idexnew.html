@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HumanRobot</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #282c34;
+            color: white;
+        }
+
+        /* Clock Widget Container at top-right */
+        .clock-widget {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 120px;
+            text-align: center;
+            z-index: 1000;
+            background-color: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .digital-clock {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .date {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .timezone {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .clock {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+            background: url('HumanRobot.jpg') no-repeat center center/cover;
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translateX(-50%) rotate(0deg);
+        }
+
+        .hour {
+            width: 6px;
+            height: 50px;
+            background: blue;
+        }
+
+        .minute {
+            width: 4px;
+            height: 70px;
+            background: green;
+        }
+
+        .second {
+            width: 2px;
+            height: 90px;
+            background: red;
+        }
+
+        .numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        .numbers div {
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Clock Widget -->
+    <div class="clock-widget">
+        <div class="digital-clock" id="digital-clock">00:00:00</div>
+        <div class="timezone">{IST (UTC+5:30)}</div>
+        <div class="date" id="date">DD-MM-YYYY</div><br>
+        <div class="clock">
+            <div class="hand hour" id="hour"></div>
+            <div class="hand minute" id="minute"></div>
+            <div class="hand second" id="second"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            const hourDeg = ((hours % 12) * 30) + (minutes * 0.5);
+            const minuteDeg = (minutes * 6) + (seconds * 0.1);
+            const secondDeg = seconds * 6;
+            
+            document.getElementById("hour").style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.getElementById("minute").style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.getElementById("second").style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+            
+            document.getElementById("digital-clock").textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            const day = now.getDate().toString().padStart(2, '0');
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const year = now.getFullYear();
+            document.getElementById("date").textContent = `${day}-${month}-${year}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sachin Bhosale - Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    .section-title {
+      background-color: #2c3e50;
+      color: white;
+      padding: 10px;
+    }
+    ul, li {
+      margin: 5px 0;
+    }
+    .contact-info, .education-table, .experience-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .contact-info td, .education-table td, .education-table th, .experience-table td, .experience-table th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    .education-table th, .experience-table th {
+      background-color: #ecf0f1;
+    }
+    .address {
+      margin-top: 20px;
+    }
+    .signature {
+      text-align: right;
+      margin-top: 40px;
+    }
+    /* Style for embedded status preview frame */
+    .status-preview-wrapper {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .status-preview-frame {
+      width: 100%;
+      max-width: 480px;
+      height: 860px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Sachin Laxmi Dinesh Bhosale | ✵</h1><br>
+  <h1>सचिन लक्ष्मी दिनेश भोसले | ✵</h1><br>
+    Validating Life | Web∞ + Bl⚙ckchain🚀| #tracgrggl + #iesef⚙sp❣️ | Human 😊 R⚙b⚙t 🤖|✵|Ψ|₹|$|USD₮|Ξ|₿<hr>
+  
+      <style>
+        .libutton {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 7px;
+          text-align: center;
+          outline: none;
+          text-decoration: none !important;
+          color: #ffffff !important;
+          width: 200px;
+          height: 32px;
+          border-radius: 16px;
+          background-color: #0A66C2;
+          font-family: "SF Pro Text", Helvetica, sans-serif;
+        }
+      </style>
+<!-- <a class="libutton" href="https://www.linkedin.com/in/sdbhosale" target="_blank">Please Follow on LinkedIn</a> -->
+  <br>
+  <table class="contact-info">
+    <tr><td>Address</td><td>Flat G-401, G1 Building, Pant Nagar, Pandharpur</td></tr>
+    <tr><td>Contact</td><td>+91-9503103805</td></tr>
+    <tr><td>Email</td><td>sdbhosale@gmail.com</td></tr>
+  </table>
+
+  <!-- Embedded Status Preview -->
+  <div class="status-preview-wrapper">
+    <iframe src="humanrobot_status.html" title="HumanRobot Status" class="status-preview-frame"></iframe>
+  </div>
+
+  <section>
+    <h2 class="section-title">Professional Summary</h2>
+    <ul>
+      <li>~12 years Teaching cum Learning Experience</li>
+      <li>~4 years IT Industrial Experience</li>
+      <li>Total ~16 years of Experience</li>
+      <li>Subjects taught: BME, C, C++, Python, Universal Human Values</li>
+      <li>Manual Testing at Wipro and Cognilements</li>
+      <li>FAP Certified Tester - Wipro</li>
+      <li>Experienced in GUI, Functional and Regression testing</li>
+      <li>Knowledge of SDLC, STLC and Defect Life Cycle</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">ME Project</h2>
+    <p>Worked on Photochemical Machining to fabricate micro structures using PMMA or PDMS.</p>
+    <p>Guides: Dr. Prashant Pawar, Dr. Nitin Misal</p>
+    <p>Mentors: Dr. VP Dhamgaye, Dr. GS Lodha, Dr. Rahul Shukla</p>
+    <p>Locations: SVERI (Pandharpur), RRCAT (Indore)</p>
+  </section>
+
+  <section>
+    <h2 class="section-title">Ice Breaking Activities conducted for FY Engineering Students</h2>
+    <ul>
+      <li>2 Truth & 1 Lie</li>
+      <li>Humming Activity</li>
+      <li>One Word Activity</li>
+      <li>Writing name in mirrored form</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">Technical Skill Set</h2>
+    <ul>
+      <li>Manual Testing + Playwright Automation</li>
+      <li>Tools: Jira, Mantis, QC 10.0, Testlink</li>
+      <li>Browserstack Online Devices Testing Platform</li>
+      <li>Used Slack - team communication platform</li>
+      <li>Languages: C, C++, Python, php, html, css, sql with ai</li>
+      <li>OS: Windows 11, Ubuntu, raspberry pi</li>
+      <li>Software: AutoCAD 2004, CATIA</li>
+      <li>Database: SQL</li>
+      <li>Prompt Engineering</li>
+      <li>Blockchain Technology</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">Education</h2>
+    <table class="education-table">
+      <tr><th>Degree</th><th>Institute</th><th>University</th><th>Marks</th><th>Year</th></tr>
+      <tr><td>M.E. (⚙️⚙)</td><td>SVERI's, College of Engineering, Pandharpur</td><td>Solapur University (Now Punyashlok Ahilyadevi Holkar University, Solapur
+)</td><td>68.74% | Distinction</td><td>2013</td></tr>
+      <tr><td>B.E.(⚙️⚙)</td><td>SVERI's, College of Engineering, Pandharpur</td><td>Solapur University (Now -Punyashlok Ahilyadevi Holkar University, Solapur
+)</td><td>70.85% | Distinction</td><td>2008</td></tr>
+      <tr><td>HSC</td><td>Vivek Vardhini Vidyalaya and Jr. College, Pandharpur</td><td>Pune Board</td><td>67% | First Class</td><td>2004</td></tr>
+      <tr><td>SSC</td><td>द. ह. कवठेकर प्रशाला, पंढरपूर</td><td>Pune Board</td><td>86.26% | Distinction</td><td>2002</td></tr>
+        <tr><td>छोटा शिशू ते ४ थी</td><td>आदर्श बाल व प्राथमिक मंदिर, पंढरपूर</td><td>पंढरपूर एज्युकेशन सोसायटी, पंढरपूर</td><td>XX.XX%</td><td>XXXX</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2 class="section-title">Work Experience</h2>
+    <ul>
+      <li><strong>Karmayogi Institute of Technology, KPC (Karmayogi Polytechnic College) Shelve-Pandharpur (2025 – Present) :</strong> </li>
+      <li><strong>Cognilements Pvt. Ltd. Pune (2023–2025) :</strong> Management Control relata Admin Portal - Desktop app, Creator Desktop app, Viewer VSG app - Desktop and Mobile apps in Real Estate</li>
+      <li><strong>SVERI's College of Engineering, Pandharpur (2011–2023) :</strong> Assistant Professor</li>
+      <li><strong>Wipro Technologies Ltd. - Bengaluru, Chennai and Pune (2009–2011) :</strong> Manual Tester – Insurance, Banking Domains</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">Trainings Attended @ Wipro</h2>
+    <ul>
+      <li>Veloci-Q 101</li>
+      <li>Software Reviews and Testing</li>
+      <li>Flat File Database, SQL</li>
+      <li>Web Testing etc.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">Personal Information</h2>
+    <ul>
+      <li>DOB: DD-MM-YYYY</li>
+      <!--<li>Gender: 8≡≡≡D</li>-->
+      <!--<li>Marital Status: Married</li>-->
+      <li>Languages: English, हिंदी, मराठी</li>
+    </ul>
+    <div class="address">
+      <strong>Address:</strong> Flat No. G401, G1-Building, Near Govt. Warehouse, Pant Nagar, Pandharpur-Karad Road, Pandharpur, Dist. Solapur, Maharashtra-413304 <br>
+      <strong>Google Map:</strong> <a href="https://maps.app.goo.gl/pL9c48S6AfBFjSQD6" target="_blank">Please click here</a>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Professional Hobbies</h2>
+    <ul>
+      <li>Playwright Automation</li>
+      <li>AI/ML Testing Exploration</li>
+      <li>Mind Mapping</li>
+      <li>UX/UI Design Learning</li>
+      <li>Telegram & AI Apps Exploration</li>
+       <li>Prompt Engineering</li>
+      </li>Writing Test Cases - Canva designs and Figma designs</li>
+      <li>Writing Prompts by using AI Tools like grok, ChatGPTapp, Deepseek_ai, Copilot and GeminiApp</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">Personal Hobbies</h2>
+    <ul>
+      <li>Listening Music</li>
+      <li>Humming Activity</li>
+      <li>Playing football and badminton</li>
+      <li>Playing Super Mario Video/Computer Game</li>
+      <li><a href="https://t.me/keynoteassets" target="_blank"> Telegram Society Builder</a></li>
+       <li>🤖🗣 Natural Language Processing</li>
+      </li>🏡🗺🌏🌍🌎</li>
+      <li>Web∞</li>
+    </ul>
+  </section>
+
+
+
+  <section>
+    <h2 class="section-title">Extra-Curricular</h2>
+    <ul>
+     <!-- <li></li>-->
+      <li>Social Media Promotion</li>
+      <li>Admission Counseling & Support</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">Other Contributions</h2>
+    <ul>
+      <li>Making Events Live on Social Media like Facebook</li>
+      <li>Graphics Designing for Events</li>
+    <!-- <li></li>-->
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">Workshops & Conferences Attended</h2>
+    <ul>
+      <li>AICTE FDPs on Outcome Based Education</li>
+      <li>Soft Skills & Personality Development Workshops</li>
+      <li>Engineering Education Research Seminars</li>
+    </ul>
+  </section>
+
+    <section>
+    <h2 class="section-title">Declaration</h2>
+    <p>I hereby declare that the information given above is true and correct to the best of my knowledge.</p>
+    <div class="signature">
+      <p><strong>Sachin Dinesh Bhosale</strong></p>
+    </div>
+  </section>
+
+<hr>
+  <a href="http://80.225.234.31/kpiic/index.html">✵</a> © 2025 by <a href="https://www.linkedin.com/in/sdbhosale">ΨCHIन Bhosale</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+</body>
+</html>
