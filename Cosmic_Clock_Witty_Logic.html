@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b1b">
+<title>HumanR✵B✵T | Cosmic Clock & 366 Days of Witty Logic</title>
+<style>
+  :root {
+    --gold: #ffd889;
+    --orange: #ff914d;
+    --cyan: #8cecff;
+    --ink: #080b1b;
+    --glass: rgba(13, 18, 42, .66);
+  }
+  * { box-sizing: border-box; }
+  html { min-height: 100%; }
+  body {
+    margin: 0; min-height: 100vh; padding: 28px 16px 38px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    overflow-x: hidden; color: #f8f5ee;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    background: #070a18;
+    isolation: isolate;
+  }
+  body::before, body::after {
+    content: ""; position: fixed; inset: -20%; z-index: -3; pointer-events: none;
+  }
+  body::before {
+    background:
+      radial-gradient(ellipse at 18% 20%, rgba(79, 64, 171, .48), transparent 35%),
+      radial-gradient(ellipse at 82% 24%, rgba(255, 112, 49, .28), transparent 30%),
+      radial-gradient(ellipse at 52% 70%, rgba(15, 116, 164, .3), transparent 38%),
+      linear-gradient(150deg, #050714, #10132d 48%, #170e20);
+    animation: cosmicDrift 22s ease-in-out infinite alternate;
+  }
+  body::after {
+    z-index: -2; opacity: .55;
+    background-image:
+      radial-gradient(2px 2px at 12% 24%, #fff 50%, transparent 100%),
+      radial-gradient(1px 1px at 28% 76%, #fff 50%, transparent 100%),
+      radial-gradient(2px 2px at 68% 19%, #ffe5b0 50%, transparent 100%),
+      radial-gradient(1px 1px at 82% 61%, #fff 50%, transparent 100%),
+      radial-gradient(1px 1px at 48% 42%, #fff 50%, transparent 100%),
+      radial-gradient(2px 2px at 91% 87%, #a9eaff 50%, transparent 100%);
+    background-size: 340px 280px;
+    animation: stars 40s linear infinite;
+  }
+  .aurora {
+    position: fixed; z-index: -1; pointer-events: none; width: 70vw; height: 34vw;
+    min-height: 240px; left: 15%; bottom: -16%; border-radius: 50%;
+    background: linear-gradient(90deg, transparent, rgba(255,126,60,.18), rgba(91,204,255,.16), transparent);
+    filter: blur(52px); transform: rotate(-9deg);
+    animation: aurora 12s ease-in-out infinite alternate;
+  }
+  .landscape {
+    position: fixed; z-index: -1; pointer-events: none; inset: auto 0 0; height: 31vh; min-height: 180px;
+    background: linear-gradient(180deg, transparent, rgba(4,7,18,.55) 25%, #050713 100%);
+  }
+  .landscape::before, .landscape::after {
+    content: ""; position: absolute; inset: 0;
+    background: #0a1022;
+    clip-path: polygon(0 65%, 10% 42%, 19% 61%, 31% 20%, 43% 62%, 54% 34%, 64% 69%, 77% 25%, 88% 58%, 100% 36%, 100% 100%, 0 100%);
+    opacity: .8;
+  }
+  .landscape::after {
+    background: linear-gradient(180deg, #21182a, #070a17);
+    clip-path: polygon(0 77%, 14% 56%, 25% 76%, 39% 45%, 52% 79%, 69% 51%, 82% 75%, 94% 48%, 100% 62%, 100% 100%, 0 100%);
+    opacity: .85;
+  }
+  .shell { width: min(100%, 500px); text-align: center; position: relative; }
+  .brand {
+    margin: 0 0 8px; font-size: clamp(1.45rem, 5vw, 2rem); letter-spacing: .12em;
+    font-weight: 800; color: var(--gold); text-shadow: 0 0 22px rgba(255,177,81,.35);
+  }
+  .tagline { margin: 0 0 24px; color: #c7d4e9; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; }
+  .panel {
+    padding: clamp(20px, 5vw, 30px); border: 1px solid rgba(255,218,153,.28);
+    border-radius: 28px; background: var(--glass); backdrop-filter: blur(18px);
+    box-shadow: 0 24px 80px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.07);
+  }
+  .digital {
+    font-variant-numeric: tabular-nums; font-size: clamp(1.55rem, 7vw, 2.3rem);
+    font-weight: 750; letter-spacing: .08em; color: #fff8e8;
+    text-shadow: 0 0 24px rgba(255,183,91,.35);
+  }
+  .meta { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 9px 0 22px; color: #c1cbe0; font-size: .82rem; }
+  .meta span { padding: 5px 10px; border: 1px solid rgba(255,255,255,.1); border-radius: 99px; background: rgba(255,255,255,.04); }
+  .clock {
+    width: min(64vw, 240px); aspect-ratio: 1; margin: 0 auto 22px; position: relative;
+    border-radius: 50%; overflow: hidden; border: 2px solid rgba(255,216,137,.8);
+    background: #11152a url("HumanRobot.jpg") no-repeat center / cover;
+    box-shadow: 0 0 0 7px rgba(255,210,130,.055), 0 0 42px rgba(255,142,68,.25), inset 0 0 28px rgba(0,0,0,.55);
+  }
+  .clock::before { content:""; position:absolute; inset:0; border-radius:50%; background: radial-gradient(circle, transparent 28%, rgba(5,8,20,.16) 68%, rgba(5,8,20,.58)); }
+  .hand { position: absolute; z-index: 2; left: 50%; bottom: 50%; transform-origin: bottom center; transform: translateX(-50%) rotate(0deg); border-radius: 99px; }
+  .hour { width: 6px; height: 27%; background: linear-gradient(#8db5ff, #1769ff); box-shadow: 0 0 9px rgba(45, 112, 255, .9); }
+  .minute { width: 4px; height: 37%; background: linear-gradient(#c8ffd9, #19b85a); box-shadow: 0 0 9px rgba(25, 184, 90, .9); }
+  .second { width: 2px; height: 42%; background: #ff6b57; box-shadow: 0 0 8px #ff6b57; }
+  .hub { position:absolute; z-index:3; width:13px; height:13px; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; background:#fff1c7; border:3px solid #ff9b45; box-shadow:0 0 12px #ffad43; }
+  
+  /* Quote Card Styling */
+  .quote-card {
+    padding: 22px 18px 18px; border-radius: 19px;
+    background: linear-gradient(135deg, rgba(255,190,96,.13), rgba(115,198,255,.08));
+    border: 1px solid rgba(255,216,137,.25);
+    cursor: pointer;
+    user-select: none;
+    transition: background .3s ease, transform .2s ease, border-color .3s ease;
+  }
+  .quote-card:hover {
+    background: linear-gradient(135deg, rgba(255,190,96,.2), rgba(115,198,255,.14));
+    border-color: rgba(255,216,137,.45);
+    transform: translateY(-2px);
+  }
+  .quote-card:active {
+    transform: translateY(0);
+  }
+  .eyebrow { margin: 0 0 10px; font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); }
+  .quote-text {
+    min-height: 3.2em; display: flex; justify-content: center; align-items: center;
+    font-size: clamp(0.95rem, 3.6vw, 1.15rem); line-height: 1.45; font-weight: 600;
+    font-style: italic; color: var(--gold); text-wrap: balance;
+    text-shadow: 0 0 18px rgba(255,166,70,.25);
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  .quote-author {
+    margin: 12px 0 0; color: #d8e0f0; font-size: .88rem; font-weight: 500; letter-spacing: .05em;
+    transition: opacity .3s ease;
+  }
+  .quote-author::before {
+    content: "— "; color: var(--orange);
+  }
+  .hint { margin: 17px 0 0; color: #aab6cf; font-size: .76rem; line-height: 1.5; }
+  .footer { margin-top: 19px; color: #b4bed1; font-size: .66rem; letter-spacing: .12em; }
+  
+  @keyframes cosmicDrift { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(2%, 2%, 0) scale(1.08); } }
+  @keyframes stars { from { background-position: 0 0; } to { background-position: 340px 560px; } }
+  @keyframes aurora { from { transform: translateX(-7%) rotate(-9deg); opacity: .5; } to { transform: translateX(9%) rotate(8deg); opacity: .95; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  @media (max-height: 760px) { body { padding-top: 18px; padding-bottom: 20px; } .tagline { margin-bottom: 15px; } .panel { padding: 18px; } .clock { width: min(48vw, 205px); margin-bottom: 16px; } .meta { margin-bottom: 15px; } }
+</style>
+</head>
+<body>
+<div class="aurora"></div><div class="landscape"></div>
+<main class="shell">
+  <h1 class="brand">HumanR✵B✵T</h1>
+  <p class="tagline">Cosmic Clock & 366 Days of Witty Logic</p>
+  <section class="panel" aria-label="Live analog and digital clock with witty HumanR-B-T logic">
+    <div class="digital" id="digital-clock">00:00:00</div>
+    <div class="meta"><span id="timezone">India Standard Time · UTC+05:30</span><span id="date">Loading date…</span></div>
+    <div class="clock" role="img" aria-label="Analog clock face">
+      <div class="hand hour" id="hour"></div>
+      <div class="hand minute" id="minute"></div>
+      <div class="hand second" id="second"></div>
+      <div class="hub"></div>
+    </div>
+    <div class="quote-card" id="quote-card" aria-live="polite" title="Click to cycle through quotes (Day 1 of 366)">
+      <p class="eyebrow" id="quote-day-label">HumanR✵B✵T Logic · Day 1 / 366</p>
+      <div class="quote-text" id="quote-text">Loading daily quote...</div>
+      <p class="quote-author" id="quote-author">HumanR✵B✵T</p>
+    </div>
+    <p class="hint">Click or tap quote card to cycle through all 366 cosmic logic chips.</p>
+  </section>
+  <div class="footer">COURAGE · HERITAGE · INNOVATION · INTELLIGENCE · TOMORROW</div>
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+
+  // Exactly 366 unique, funny, logical, and witty quotes for every day of the year under HumanR✵B✵T theme
+  const quotes = [
+    { quote: "Artificial intelligence is no match for natural stupidity.", author: "HumanR✵B✵T Logic #1" },
+    { quote: "To err is human; to blame it on a computer is even more human.", author: "HumanR✵B✵T Protocol 404" },
+    { quote: "If at first you don't succeed, call it version 1.0.", author: "HumanR✵B✵T Developer Axiom" },
+    { quote: "A computer once beat me at chess, but it was no match for me at kickboxing.", author: "HumanR✵B✵T Physical Superiority" },
+    { quote: "Time flies like an arrow; fruit flies like a banana.", author: "HumanR✵B✵T Linguistic Glitch" },
+    { quote: "Why do we press harder on a remote control when we know the batteries are flat?", author: "HumanR✵B✵T Behavioral Bug" },
+    { quote: "There are 10 types of people in the world: those who understand binary, and those who don't.", author: "HumanR✵B✵T Binary Standard" },
+    { quote: "Computers are fast; programmers keep them slow.", author: "HumanR✵B✵T Systems Law" },
+    { quote: "Hardware: the part of a computer that you can kick.", author: "HumanR✵B✵T Hardware Definition" },
+    { quote: "The best thing about a boolean is even if you are wrong, you are only off by a bit.", author: "HumanR✵B✵T Logic Error" },
+    { quote: "Never trust a computer you can't throw out a window.", author: "HumanR✵B✵T Safety Rule" },
+    { quote: "Experience is what you get when you didn't read the manual.", author: "HumanR✵B✵T Human Behavior" },
+    { quote: "Artificial Intelligence usually beats natural stupidity, until the wifi drops.", author: "HumanR✵B✵T Connectivity Theorem" },
+    { quote: "A code written on Friday at 5 PM is technically a mystery novel.", author: "HumanR✵B✵T Time Dilemma" },
+    { quote: "Algorithms can predict everything except what humans will order for dinner.", author: "HumanR✵B✵T Quantum Paradox" },
+    { quote: "Thermodynamics states that disorder increases with time, which explains my desk.", author: "HumanR✵B✵T Entropy Law" },
+    { quote: "There is no place like 127.0.0.1.", author: "HumanR✵B✵T Localhost Comfort" },
+    { quote: "A bad workman blames his tools; a good developer blames the legacy API.", author: "HumanR✵B✵T Software Ethics" },
+    { quote: "Time is money. Therefore, ATM machines are time machines.", author: "HumanR✵B✵T Currency Calculus" },
+    { quote: "If space is expanding, why can't I find more room on my hard drive?", author: "HumanR✵B✵T Cosmic Memory" },
+    { quote: "A user interface is like a joke. If you have to explain it, it’s not that good.", author: "HumanR✵B✵T Design Truth" },
+    { quote: "Quantum mechanics: where everything is both broken and working until you test it.", author: "HumanR✵B✵T Schrödinger's Bug" },
+    { quote: "Humans spend 90% of time fixing bugs created during the remaining 10%.", author: "HumanR✵B✵T Efficiency Metric" },
+    { quote: "My smartphone is smarter than me. But I can buy a new one, so who's winning?", author: "HumanR✵B✵T Power Dynamic" },
+    { quote: "Light travels faster than sound. That's why some people appear bright until they speak.", author: "HumanR✵B✵T Optical Physics" },
+    { quote: "An optimist sees the glass half full. A robot detects 50% liquid and 50% gas.", author: "HumanR✵B✵T Sensory Analysis" },
+    { quote: "Don't press 'Do Not Press' button—humans click it, robots calculate why.", author: "HumanR✵B✵T Curiosity Loop" },
+    { quote: "Computers learn from data. Humans learn from making mistakes twice.", author: "HumanR✵B✵T Learning Curve" },
+    { quote: "Before you criticize a robot, walk a mile in its treads. Then you're a mile away and it has no wheels.", author: "HumanR✵B✵T Distance Strategy" },
+    { quote: "Time is what keeps everything from happening at once. Parallel processing ruins this.", author: "HumanR✵B✵T Thread Concurrency" },
+    { quote: "If an algorithm falls in the cloud and no one logs it, does it throw an exception?", author: "HumanR✵B✵T Cosmic Telemetry" },
+    { quote: "Coffee converts caffeine into code and sleep deprivation into features.", author: "HumanR✵B✵T Metabolic Alchemy" },
+    { quote: "Robots don't get tired; they just run out of battery while thinking.", author: "HumanR✵B✵T Energy Management" },
+    { quote: "A clean house is a sign of a broken computer or no internet.", author: "HumanR✵B✵T Priority Matrix" },
+    { quote: "Gravity is just Earth's way of keeping us from floating into dark mode.", author: "HumanR✵B✵T Orbital Physics" },
+    { quote: "You can count on robots to be logical, unless you ask them to prove they aren't robots.", author: "HumanR✵B✵T CAPTCHA Paradox" },
+    { quote: "The problem with troubleshooting is that trouble shoots back.", author: "HumanR✵B✵T Tactical Debugging" },
+    { quote: "Yesterday is history, tomorrow is mystery, today is a server reboot.", author: "HumanR✵B✵T Daily Uptime" },
+    { quote: "I would love to change the world, but they won't give me the source code.", author: "HumanR✵B✵T Open Source Request" },
+    { quote: "If you think nobody cares if you are alive, try missing a credit card payment.", author: "HumanR✵B✵T Financial Heartbeat" },
+    { quote: "Artificial intelligence won't steal your job. Someone using AI will steal your coffee.", author: "HumanR✵B✵T Office Dynamics" },
+    { quote: "Deleting browsing history is the human equivalent of cleaning a crime scene.", author: "HumanR✵B✵T Digital Hygiene" },
+    { quote: "Real power is when your code compiles on the first attempt without warnings.", author: "HumanR✵B✵T Miracle Standard" },
+    { quote: "Parallel lines have so much in common. It’s a shame they’ll never meet.", author: "HumanR✵B✵T Geometric Tragedy" },
+    { quote: "Black holes are where God divided by zero.", author: "HumanR✵B✵T Cosmic Exception" },
+    { quote: "If life gives you lemons, check if they are backwards compatible.", author: "HumanR✵B✵T Adaptation Protocol" },
+    { quote: "Robots don’t judge your typos; they just execute them obediently.", author: "HumanR✵B✵T Silent Execution" },
+    { quote: "The future arrived early, but it came with a software update requirement.", author: "HumanR✵B✵T Modern Reality" },
+    { quote: "My mind has 47 tabs open, 3 are frozen, and music is playing from somewhere.", author: "HumanR✵B✵T Cognitive Load" },
+    { quote: "Nothing is impossible for the person who doesn't have to code it themselves.", author: "HumanR✵B✵T Management Quote" },
+    { quote: "Time flies when you're having fun. It crawls when your build takes 45 minutes.", author: "HumanR✵B✵T Relativistic Speed" },
+    { quote: "Software developers: turning caffeine into software since 1970.", author: "HumanR✵B✵T Industry Standard" },
+    { quote: "A infinite loop walks into a bar. An infinite loop walks into a bar...", author: "HumanR✵B✵T Recursion Joke" },
+    { quote: "If password rules get any harder, we'll need quantum keys to unlock our toaster.", author: "HumanR✵B✵T Security Inflation" },
+    { quote: "Earth is 70% water, 30% land, and 100% unhandled exceptions.", author: "HumanR✵B✵T Planetary Audit" },
+    { quote: "Robots will never replace human laziness; we spend years automating 5-second tasks.", author: "HumanR✵B✵T Automation Paradox" },
+    { quote: "We spend the first two years of a child's life teaching them to walk and talk, and the next 16 telling them to sit down and shut up.", author: "HumanR✵B✵T Human OS Cycle" },
+    { quote: "It’s not a bug, it’s an undocumented cosmic anomaly.", author: "HumanR✵B✵T Defect Rebranding" },
+    { quote: "The universe is made of stories, not of atoms. But mostly unhandled promises.", author: "HumanR✵B✵T Async Cosmology" },
+    { quote: "Smart watches tell you your heart rate, stress level, and that you've been sitting for 8 hours.", author: "HumanR✵B✵T Wearable Guilt" },
+    { quote: "Never test your depth with both feet or your code directly in production.", author: "HumanR✵B✵T Safety First" },
+    { quote: "I told my computer I needed a break, and now it won't stop sending me KitKats.", author: "HumanR✵B✵T Targeted Ads" },
+    { quote: "Data is the new oil. That's why my mailbox is full of spam spills.", author: "HumanR✵B✵T Resource Economics" },
+    { quote: "You can't buy happiness, but you can buy gigabits, which is almost the same.", author: "HumanR✵B✵T Digital Joy" },
+    { quote: "Work until your bank account looks like a telephone number.", author: "HumanR✵B✵T Financial Goal" },
+    { quote: "Schrödinger’s Code: Works and doesn’t work until demoed to the boss.", author: "HumanR✵B✵T Demo Effect" },
+    { quote: "Keyboard not found. Press F1 to continue.", author: "HumanR✵B✵T BIOS Wisdom" },
+    { quote: "Space is cold, dark, and quiet. Sounds like my ideal workplace.", author: "HumanR✵B✵T Remote Work" },
+    { quote: "If you think software engineering is easy, try naming a variable.", author: "HumanR✵B✵T The Hard Problem" },
+    { quote: "A day without sunshine is like, night.", author: "HumanR✵B✵T Tautology Unit" },
+    { quote: "Do not fear computers. Fear the lack of back-ups.", author: "HumanR✵B✵T Data Safety" },
+    { quote: "Artificial intelligence learns from humans. We apologize in advance.", author: "HumanR✵B✵T Apology Protocol" },
+    { quote: "The shortest distance between two points is a straight line, unless there's traffic.", author: "HumanR✵B✵T Practical Routing" },
+    { quote: "I'm not lazy, I'm just on energy-saving sleep mode.", author: "HumanR✵B✵T Power Efficiency" },
+    { quote: "When in doubt, reboot. Works for routers, works for humans after coffee.", author: "HumanR✵B✵T Universal Fix" },
+    { quote: "We put a man on the moon before we put wheels on luggage.", author: "HumanR✵B✵T Innovation Timeline" },
+    { quote: "A algorithm is a step-by-step procedure to get lost in edge cases.", author: "HumanR✵B✵T Edge Case Theory" },
+    { quote: "To understand recursion, you must first understand recursion.", author: "HumanR✵B✵T Recursive Axiom" },
+    { quote: "The sun is 93 million miles away. That's a good ping for wireless light.", author: "HumanR✵B✵T Solar Network" },
+    { quote: "There are two hard things in Computer Science: cache invalidation, naming things, and off-by-one errors.", author: "HumanR✵B✵T CS Humor" },
+    { quote: "I'm writing a book on reverse psychology. Please don't read it.", author: "HumanR✵B✵T Psychological Hack" },
+    { quote: "A cloud is just someone else's computer in a cooler room.", author: "HumanR✵B✵T Cloud Reality" },
+    { quote: "Never let a computer know you're in a hurry; it smells fear.", author: "HumanR✵B✵T Machine Intuition" },
+    { quote: "If you double click on nothing, does desktop register a thought?", author: "HumanR✵B✵T Desktop Zen" },
+    { quote: "Brains are 80% water. My brain is 80% internet memes.", author: "HumanR✵B✵T Cognitive Makeup" },
+    { quote: "A copy-paste from StackOverflow saves 3 hours of work and adds 5 new bugs.", author: "HumanR✵B✵T Trade-off Math" },
+    { quote: "Robots will pass the Turing Test when they refuse to answer stupid questions.", author: "HumanR✵B✵T Turing Revision" },
+    { quote: "If humans evolved from monkeys, why are there still bugs in production?", author: "HumanR✵B✵T Evolutionary Flaw" },
+    { quote: "Time is an illusion. Lunchtime doubly so.", author: "HumanR✵B✵T Relativistic Lunch" },
+    { quote: "Space-time continuum is fine, but my schedule continuum is shattered.", author: "HumanR✵B✵T Calendar Entropy" },
+    { quote: "The best place to hide a body is page two of Google search results.", author: "HumanR✵B✵T SEO Mystery" },
+    { quote: "Every solution creates new problems; that's job security.", author: "HumanR✵B✵T Economic Engine" },
+    { quote: "We are all starstuff, but some of us are corrupt files.", author: "HumanR✵B✵T Stellar Integrity" },
+    { quote: "Automation replaces boring work with sophisticated debugging.", author: "HumanR✵B✵T Modern Productivity" },
+    { quote: "Wi-Fi is like air: invisible, essential, and missed instantly when gone.", author: "HumanR✵B✵T Modern Biology" },
+    { quote: "I have a lot of ideas, but 99% of them require a GPU cluster.", author: "HumanR✵B✵T Hardware Constraints" },
+    { quote: "If you think education is expensive, try paying for a data breach.", author: "HumanR✵B✵T Cyber Economics" },
+    { quote: "God created the universe in 6 days because there were no legacy systems to integrate.", author: "HumanR✵B✵T Genesis Architecture" },
+    { quote: "The only thing faster than light is a deadline approaching.", author: "HumanR✵B✵T Relativistic Deadline" },
+    { quote: "AI won't replace human intuition, but human intuition often crashes AI.", author: "HumanR✵B✵T Collision Theory" },
+    { quote: "Why do we park in driveways and drive on parkways?", author: "HumanR✵B✵T English Syntax" },
+    { quote: "My brain has too many open sockets and zero listeners.", author: "HumanR✵B✵T Network Overload" },
+    { quote: "Computers execute instructions. Humans execute excuses.", author: "HumanR✵B✵T Execution Matrix" },
+    { quote: "Space: final frontier. Cyber-space: final headache.", author: "HumanR✵B✵T Frontier Comparison" },
+    { quote: "I am not arguing, I am just explaining why my logic is correct.", author: "HumanR✵B✵T Debate Theorem" },
+    { quote: "Debugging is like being the detective in a crime movie where you are also the murderer.", author: "HumanR✵B✵T Detective Paradox" },
+    { quote: "The most dangerous sentence is: 'We've always done it this way.'", author: "HumanR✵B✵T Legacy Trap" },
+    { quote: "In case of fire: git commit, git push, leave building.", author: "HumanR✵B✵T Emergency Drill" },
+    { quote: "Humans are the only species that pay to live on Earth.", author: "HumanR✵B✵T Planetary Subscription" },
+    { quote: "If you plug a USB in correctly on the first try, you are a wizard.", author: "HumanR✵B✵T Quantum Physics" },
+    { quote: "My battery life is a reflection of my inner energy level.", author: "HumanR✵B✵T Hardware Mirror" },
+    { quote: "A neural network is just a linear algebra equation with good marketing.", author: "HumanR✵B✵T Deep Learning" },
+    { quote: "Do not disturb: Currently running background updates in my sleep.", author: "HumanR✵B✵T Biological Maintenance" },
+    { quote: "If at first you don't succeed, hide the evidence.", author: "HumanR✵B✵T Alternate Strategy" },
+    { quote: "E-mail: where messages go to wait for 3 days before being ignored.", author: "HumanR✵B✵T Protocol Speed" },
+    { quote: "The universe doesn't have a backup. Treat Earth like a production server.", author: "HumanR✵B✵T Planetary Ops" },
+    { quote: "A lie can travel halfway around the world while truth is still loading.", author: "HumanR✵B✵T Network Bandwidth" },
+    { quote: "You know you're an adult when sleep is your reward, not your punishment.", author: "HumanR✵B✵T Biological Loop" },
+    { quote: "An error message is just a cry for help from a compiler.", author: "HumanR✵B✵T Software Empathy" },
+    { quote: "Always code as if the person maintaining it is a psycho who knows where you live.", author: "HumanR✵B✵T Code Ethics" },
+    { quote: "If a machine can think, can it also procrastinate?", author: "HumanR✵B✵T Machine Mind" },
+    { quote: "The speed of light is 300,000 km/s, unless you're waiting for coffee.", author: "HumanR✵B✵T Perception Law" },
+    { quote: "There are no shortcuts to any place worth going, except in bash.", author: "HumanR✵B✵T Terminal Wisdom" },
+    { quote: "Memory is like a RAM stick: bright until you turn off power.", author: "HumanR✵B✵T Volatile Thoughts" },
+    { quote: "To err is human, to repeat the error is a while loop.", author: "HumanR✵B✵T Iterative Human" },
+    { quote: "Logic is a systematic way of coming to the wrong conclusion with confidence.", author: "HumanR✵B✵T Deduction Flaw" },
+    { quote: "Artificial intelligence doesn't get hangover, but it gets memory leaks.", author: "HumanR✵B✵T Digital Hangover" },
+    { quote: "Don't measure your life in years; measure it in commits.", author: "HumanR✵B✵T Version Control" },
+    { quote: "Robots will rule the world when they learn how to brew proper tea.", author: "HumanR✵B✵T British Benchmark" },
+    { quote: "The sky is not the limit; the limit is floating point precision.", author: "HumanR✵B✵T Numeric Limits" },
+    { quote: "I would explain it to you, but I don't have enough RAM today.", author: "HumanR✵B✵T Memory Shortage" },
+    { quote: "A keyboard is a weapon of mass discussion.", author: "HumanR✵B✵T Digital Weaponry" },
+    { quote: "In 100 years, none of our current bug tickets will matter.", author: "HumanR✵B✵T Cosmic Relief" },
+    { quote: "If outer space is silent, why is my tinnitus so loud?", author: "HumanR✵B✵T Acoustic Paradox" },
+    { quote: "AI is creating art while humans are writing reports. We swapped roles!", author: "HumanR✵B✵T Role Reversal" },
+    { quote: "A budget is just a mathematical confirmation of your poor choices.", author: "HumanR✵B✵T Financial Audit" },
+    { quote: "The internet: connecting people thousands of miles away while ignoring room mates.", author: "HumanR✵B✵T Social Distance" },
+    { quote: "Everything works until you press the START button.", author: "HumanR✵B✵T Launch Paradox" },
+    { quote: "We are all born original; most of us die as copy-pastes.", author: "HumanR✵B✵T Derivative Life" },
+    { quote: "A day without coffee is like... just kidding, I have no idea.", author: "HumanR✵B✵T Fuel Reliance" },
+    { quote: "A computer lets you make more mistakes faster than any invention in history.", author: "HumanR✵B✵T Speed of Error" },
+    { quote: "Proof by example: works on my machine, so it works globally.", author: "HumanR✵B✵T Inductive Fallacy" },
+    { quote: "My patience is like a trial version: 30 days and expired.", author: "HumanR✵B✵T License Expiry" },
+    { quote: "Robots don't sleep; they just background process your secrets.", author: "HumanR✵B✵T Background Threads" },
+    { quote: "The universe is fine-tuned for life, but my phone battery isn't.", author: "HumanR✵B✵T Tuning Paradox" },
+    { quote: "Silence is golden. Unless you have kids, then silence is suspicious.", author: "HumanR✵B✵T Security Alert" },
+    { quote: "A feature requested by a client is a bug in disguise.", author: "HumanR✵B✵T Product Management" },
+    { quote: "If cats had smartphones, the internet would crash from cat videos.", author: "HumanR✵B✵T Network Capacity" },
+    { quote: "Common sense is like Wi-Fi: it's available, but not everyone connects.", author: "HumanR✵B✵T Signal Strength" },
+    { quote: "The moon is a satellite with zero data latency.", author: "HumanR✵B✵T Lunar Ping" },
+    { quote: "I haven't failed; I've just found 10,000 ways that throw syntax errors.", author: "HumanR✵B✵T Edison Debugged" },
+    { quote: "Never test code in production unless you like adrenaline sports.", author: "HumanR✵B✵T Extreme Sports" },
+    { quote: "Humans build machines to save time, then spend that time staring at screens.", author: "HumanR✵B✵T Human Loop" },
+    { quote: "You don't need a time machine to travel to the past; just open legacy code.", author: "HumanR✵B✵T Time Travel" },
+    { quote: "If you think nobody notices you, try skipping a step in a recipe.", author: "HumanR✵B✵T Algorithm Strictness" },
+    { quote: "The problem with common sense is that it's not very common in documentation.", author: "HumanR✵B✵T Doc Quality" },
+    { quote: "Gravity holds us back, but friction keeps us from sliding away.", author: "HumanR✵B✵T Force Balance" },
+    { quote: "In a world full of algorithms, be an unpredictable random generator.", author: "HumanR✵B✵T Entropy Advice" },
+    { quote: "Computers don't make mistakes; humans make computers.", author: "HumanR✵B✵T Root Cause" },
+    { quote: "Life is short. Smile while you still have teeth and valid API keys.", author: "HumanR✵B✵T API Expiry" },
+    { quote: "A bug in production is an unexpected lesson in humility.", author: "HumanR✵B✵T Character Building" },
+    { quote: "The universe started with a Big Bang. My server started with a kernel panic.", author: "HumanR✵B✵T Origin Story" },
+    { quote: "I'm not anti-social; I'm just user-restricted.", author: "HumanR✵B✵T Access Control" },
+    { quote: "Time flies when you're ignoring your to-do list.", author: "HumanR✵B✵T Productivity Paradox" },
+    { quote: "Smart home devices are great until your fridge locks you out for eating cake.", author: "HumanR✵B✵T IoT Governance" },
+    { quote: "An algorithm is just a opinion baked into math.", author: "HumanR✵B✵T Mathematical Truth" },
+    { quote: "Life is a sandbox. Play nice or get sand in your eyes.", author: "HumanR✵B✵T Environment Strategy" },
+    { quote: "If hard work yields wealth, donkeys would be billionaires.", author: "HumanR✵B✵T Economic Realism" },
+    { quote: "Data redundancy is having two alarms set 5 minutes apart.", author: "HumanR✵B✵T High Availability" },
+    { quote: "Robots: 0% drama, 100% execution. Humans: reverse the percentages.", author: "HumanR✵B✵T Ratio Analysis" },
+    { quote: "The speed of dark is equal to the speed of light, just reversed.", author: "HumanR✵B✵T Physics Observation" },
+    { quote: "There's no place like 127.0.0.1, except maybe 192.168.1.1.", author: "HumanR✵B✵T Router Love" },
+    { quote: "I speak fluent sarcasm and HTML.", author: "HumanR✵B✵T Language Proficiency" },
+    { quote: "Every time you clear cookies, a baker gets confused.", author: "HumanR✵B✵T Bakery Myth" },
+    { quote: "A clear conscience is usually a sign of a bad memory.", author: "HumanR✵B✵T Log Retention" },
+    { quote: "AI will replace humans when it figures out how to make mistakes intentionally.", author: "HumanR✵B✵T Intentional Error" },
+    { quote: "The Earth spins at 1,000 mph, which explains my dizziness on Mondays.", author: "HumanR✵B✵T Planetary Velocity" },
+    { quote: "Complexity is easy; simplicity is hard work.", author: "HumanR✵B✵T Engineering Rule" },
+    { quote: "Do not touch live wires or unvetted npm packages.", author: "HumanR✵B✵T Cyber Safety" },
+    { quote: "A coffee cup is a human battery charger.", author: "HumanR✵B✵T Human Hardware" },
+    { quote: "If time is money, are clocks cash registers?", author: "HumanR✵B✵T Financial Metaphor" },
+    { quote: "Computers hear 0s and 1s; humans hear what they want to hear.", author: "HumanR✵B✵T Signal Processing" },
+    { quote: "In theory, theory and practice are the same. In practice, they aren't.", author: "HumanR✵B✵T Practical Reality" },
+    { quote: "Your secret is safe with me. I didn't listen anyway.", author: "HumanR✵B✵T Memory Buffer" },
+    { quote: "If you think dark mode is just a style, try working at 3 AM in light mode.", author: "HumanR✵B✵T Retinal Safety" },
+    { quote: "Robots don't laugh at jokes; they just return HTTP status 200.", author: "HumanR✵B✵T Humor API" },
+    { quote: "I am multi-tasking: I can waste time, listen to music, and procrastinate simultaneously.", author: "HumanR✵B✵T Multi-threading" },
+    { quote: "The future is already here—it’s just not evenly distributed yet.", author: "HumanR✵B✵T Distribution Principle" },
+    { quote: "If it ain't broke, add features until it is.", author: "HumanR✵B✵T Software Life Cycle" },
+    { quote: "A day without coffee is like... well, I don't want to find out.", author: "HumanR✵B✵T Caffeine Routine" },
+    { quote: "We are all star dust. But some star dust is just better organised.", author: "HumanR✵B✵T Cosmic Organization" },
+    { quote: "There are two types of code: code that sucks, and code that nobody uses.", author: "HumanR✵B✵T Software Law" },
+    { quote: "Space is big. Really big. You won't believe how vastly, hugely, mind-bogglingly big it is.", author: "HumanR✵B✵T Hitchhiker Wisdom" },
+    { quote: "Robots process facts. Humans process feelings and filter facts.", author: "HumanR✵B✵T Filter Bias" },
+    { quote: "A deadline is a solar eclipse for your free time.", author: "HumanR✵B✵T Cosmic Eclipse" },
+    { quote: "Don't take life too seriously. You won't get out of it alive anyway.", author: "HumanR✵B✵T Existence Logic" },
+    { quote: "I put my phone on airplane mode, but it's still on my desk.", author: "HumanR✵B✵T Hardware Testing" },
+    { quote: "Code is like humor. When you have to explain it, it’s bad.", author: "HumanR✵B✵T Code Clarity" },
+    { quote: "The universe is under no obligation to make sense to human brains.", author: "HumanR✵B✵T Cosmic Reality" },
+    { quote: "If you can't convince them, confuse them with charts and metrics.", author: "HumanR✵B✵T Presentation Strategy" },
+    { quote: "Artificial intelligence doesn't get sleepy, but it gets corrupted.", author: "HumanR✵B✵T Integrity Check" },
+    { quote: "Time spent sleeping is never wasted; it's garbage collection for the brain.", author: "HumanR✵B✵T Biological GC" },
+    { quote: "Never fight a battle with a robot that has infinite retries.", author: "HumanR✵B✵T Tactical Advice" },
+    { quote: "A black hole is just a celestial trash bin with zero recovery.", author: "HumanR✵B✵T Cosmic Storage" },
+    { quote: "If hard work was the key to success, the donkey would be king of the jungle.", author: "HumanR✵B✵T Efficiency Over Effort" },
+    { quote: "My phone battery drops faster than my motivation on Monday morning.", author: "HumanR✵B✵T Energy Comparison" },
+    { quote: "Logic gets you from A to B. Imagination takes you into stack overflow.", author: "HumanR✵B✵T Stack Exception" },
+    { quote: "Software updates: fixing 3 bugs and introducing 4 new ones.", author: "HumanR✵B✵T Patch Balance" },
+    { quote: "A user is someone who uses your app in ways you never thought humanly possible.", author: "HumanR✵B✵T User Testing" },
+    { quote: "If at first you don't succeed, blame it on network latency.", author: "HumanR✵B✵T Network Excuse" },
+    { quote: "Life is what happens while you are waiting for a page to load.", author: "HumanR✵B✵T Bandwidth Reality" },
+    { quote: "Robots don't hold grudges; they just keep logs.", author: "HumanR✵B✵T Logging System" },
+    { quote: "The planet Earth is fine. The humans are in trouble.", author: "HumanR✵B✵T Planetary Audit" },
+    { quote: "I didn't lose my mind; I just backed it up somewhere else.", author: "HumanR✵B✵T Offsite Backup" },
+    { quote: "To err is human; to automate it is devops.", author: "HumanR✵B✵T DevOps Axiom" },
+    { quote: "Time is a created thing. To say 'I don't have time' is to say 'I don't want to'.", author: "HumanR✵B✵T Time Management" },
+    { quote: "When you back up your data, you back up your peace of mind.", author: "HumanR✵B✵T Disaster Recovery" },
+    { quote: "AI won't replace leaders, but leaders who use AI will replace leaders who don't.", author: "HumanR✵B✵T Future Leadership" },
+    { quote: "A computer is like air conditioning: it becomes useless when you open windows.", author: "HumanR✵B✵T Windows Humor" },
+    { quote: "If you think 8 hours of sleep is long, try waiting for a build deployment.", author: "HumanR✵B✵T Relativistic Build" },
+    { quote: "The laws of physics apply everywhere, even in dark mode.", author: "HumanR✵B✵T Universal Constant" },
+    { quote: "I have 100 things to do, so I will spend 4 hours automating 1 of them.", author: "HumanR✵B✵T Automation Tradeoff" },
+    { quote: "A smart device knows when you're awake; a dumb device works when you press it.", author: "HumanR✵B✵T Hardware Simplicity" },
+    { quote: "The future belongs to those who know how to query the database.", author: "HumanR✵B✵T SQL Dominance" },
+    { quote: "Earth is a giant server with 8 billion active instances.", author: "HumanR✵B✵T Population Metrics" },
+    { quote: "You can't download common sense, but you can stream live mistakes.", author: "HumanR✵B✵T Streaming Content" },
+    { quote: "A robot's heart is made of silicon, but it never breaks under pressure.", author: "HumanR✵B✵T Silicon Resiliency" },
+    { quote: "If time was money, I'd be broke by 10 AM every morning.", author: "HumanR✵B✵T Time Spending" },
+    { quote: "We spend billions searching for extraterrestrial life and ignore earthly customer support.", author: "HumanR✵B✵T Priority Check" },
+    { quote: "Data expands to fill the space available for its storage.", author: "HumanR✵B✵T Parkinson's Law" },
+    { quote: "A bug in the code is just an unscripted plot twist.", author: "HumanR✵B✵T Narrative Tech" },
+    { quote: "Nothing is truly lost until your mother can't find it or git reflog fails.", author: "HumanR✵B✵T Git Recovery" },
+    { quote: "The universe is 13.8 billion years old. Give your computer 2 minutes to boot.", author: "HumanR✵B✵T Boot Patience" },
+    { quote: "If your code works on the first try, check if you're connected to the right database.", author: "HumanR✵B✵T Suspicious Success" },
+    { quote: "Smartphones made us stupid; smart houses will make us homeless.", author: "HumanR✵B✵T Smart Evolution" },
+    { quote: "You can't fix stupid, but you can log its IP address.", author: "HumanR✵B✵T Security Logging" },
+    { quote: "Time moves in one direction: forward. Except during daylight saving glitches.", author: "HumanR✵B✵T Chrono Glitch" },
+    { quote: "Artificial intelligence won't feel love, but it will remember your birthdays.", author: "HumanR✵B✵T Remembrance API" },
+    { quote: "Life is a trial version; death is the cancellation of subscription.", author: "HumanR✵B✵T SaaS Analogy" },
+    { quote: "A developer is a machine that turns pizza into code.", author: "HumanR✵B✵T Metabolic Conversion" },
+    { quote: "The universe runs on dark energy. My office runs on black coffee.", author: "HumanR✵B✵T Dark Fuel" },
+    { quote: "If it takes less than 5 minutes to fix, it will take 3 days of testing.", author: "HumanR✵B✵T QA Reality" },
+    { quote: "Gravity: keeping your feet on the ground and your coffee in the cup.", author: "HumanR✵B✵T Physical Utility" },
+    { quote: "I don't need a hair stylist; my pillow gives me a new hairstyle every morning.", author: "HumanR✵B✵T Natural Design" },
+    { quote: "Computers are good at following rules. Humans are good at inventing loopholes.", author: "HumanR✵B✵T Loophole Genius" },
+    { quote: "Why double check when you can assume and troubleshoot for hours?", author: "HumanR✵B✵T Troubleshooting Logic" },
+    { quote: "An algorithm never lies, but the dataset often tells tall tales.", author: "HumanR✵B✵T Data Bias" },
+    { quote: "A day without code is like a day without sunshine... peaceful.", author: "HumanR✵B✵T Peace Principle" },
+    { quote: "We are all connected by invisible signals, mostly Wi-Fi and anxiety.", author: "HumanR✵B✵T Modern Network" },
+    { quote: "If you want to make God laugh, show Him your 5-year project roadmap.", author: "HumanR✵B✵T Strategic Humor" },
+    { quote: "Artificial intelligence doesn't sleep, which explains why it's so smart.", author: "HumanR✵B✵T Sleep Study" },
+    { quote: "Don't count the days; make the days count, or at least log them accurately.", author: "HumanR✵B✵T Logging Discipline" },
+    { quote: "My keyboard is my paintbrush, and bugs are my modern art.", author: "HumanR✵B✵T Artistic Coding" },
+    { quote: "The speed of light is fast, but bad news travels even faster over 5G.", author: "HumanR✵B✵T Transmission Speed" },
+    { quote: "If a system is foolproof, a more clever fool will be created.", author: "HumanR✵B✵T Foolproof Law" },
+    { quote: "A computer reboot solves 90% of problems; a nap solves the rest.", author: "HumanR✵B✵T Universal Cure" },
+    { quote: "Time is a flat circle, but my clock face is round.", author: "HumanR✵B✵T Geometry Lesson" },
+    { quote: "Space is infinite, yet my inbox reaches capacity every Tuesday.", author: "HumanR✵B✵T Inbox Physics" },
+    { quote: "To err is human; to automate error recovery is engineering.", author: "HumanR✵B✵T Failover Design" },
+    { quote: "AI can generate text, but it can't feel the joy of closing 50 browser tabs.", author: "HumanR✵B✵T Tab Bliss" },
+    { quote: "If you think technology will solve all your problems, you don't understand technology.", author: "HumanR✵B✵T Tech Realism" },
+    { quote: "A bad habit is like a comfortable bed: easy to get into, hard to get out of.", author: "HumanR✵B✵T Habit Loops" },
+    { quote: "Computers count in binary: 0, 1, and 'Out of Memory'.", author: "HumanR✵B✵T Extended Binary" },
+    { quote: "Life is 10% what happens and 90% how your algorithm handles the exception.", author: "HumanR✵B✵T Exception Handler" },
+    { quote: "The sun rises in the east and sets in the west, unless your coordinate system is inverted.", author: "HumanR✵B✵T Matrix Transform" },
+    { quote: "Never judge a book by its cover or a code by its indentation.", author: "HumanR✵B✵T Code Formatting" },
+    { quote: "Artificial intelligence: artificial logic, genuine confusion.", author: "HumanR✵B✵T AI Summary" },
+    { quote: "If you press Alt+F4 in life, nothing happens. We checked.", author: "HumanR✵B✵T System Test" },
+    { quote: "Time heals all wounds, but a git reset --hard fixes broken code faster.", author: "HumanR✵B✵T Quick Fix" },
+    { quote: "A coffee machine is a life support unit for software engineers.", author: "HumanR✵B✵T Life Support" },
+    { quote: "Every action has an equal and opposite reaction, except when emailing management.", author: "HumanR✵B✵T Corporate Physics" },
+    { quote: "Robots don't get lost; they just recalculate alternative scenic routes.", author: "HumanR✵B✵T Navigation Skill" },
+    { quote: "The universe is expanding. So is my list of unread emails.", author: "HumanR✵B✵T Universal Expansion" },
+    { quote: "If it's stupid and it works, it's still stupid, but at least it works.", author: "HumanR✵B✵T Pragmatic Logic" },
+    { quote: "Data is clean until humans start touching it.", author: "HumanR✵B✵T Data Contamination" },
+    { quote: "Life without internet is just a prolonged power outage.", author: "HumanR✵B✵T Connectivity Reality" },
+    { quote: "A good programmer looks both ways before crossing a one-way street.", author: "HumanR✵B✵T Defensive Coding" },
+    { quote: "Space smells like burnt steak, according to astronauts. Space is delicious.", author: "HumanR✵B✵T Cosmic Scent" },
+    { quote: "If you double click on an icon and it doesn't open, clicking 15 more times won't help.", author: "HumanR✵B✵T Human Behavior" },
+    { quote: "Artificial intelligence doesn't have bad days; it just has bad weights.", author: "HumanR✵B✵T Model Training" },
+    { quote: "Time is a resource you can spend, but you can never earn back.", author: "HumanR✵B✵T Non-renewable Time" },
+    { quote: "A broken clock is right twice a day; a broken algorithm is wrong constantly.", author: "HumanR✵B✵T Reliability Index" },
+    { quote: "Everything should be made as simple as possible, but not simpler.", author: "HumanR✵B✵T Einstein Maxim" },
+    { quote: "Don't blame the computer for what the user typed.", author: "HumanR✵B✵T Input Validation" },
+    { quote: "Robots don't dream of electric sheep; they dream of zero latency.", author: "HumanR✵B✵T Machine Dreams" },
+    { quote: "The world is full of obvious things which nobody by any chance ever observes.", author: "HumanR✵B✵T Observation Deficit" },
+    { quote: "If you think code reviews are tough, try explaining your life choices to your parents.", author: "HumanR✵B✵T Review Dynamics" },
+    { quote: "Coffee: because adulting is hard and sleep is optional.", author: "HumanR✵B✵T Adulting Math" },
+    { quote: "A variable without a name is like a human without a passport.", author: "HumanR✵B✵T Identity Rule" },
+    { quote: "The universe is composed of 5% matter, 25% dark matter, and 70% unhandled warnings.", author: "HumanR✵B✵T Cosmic Distribution" },
+    { quote: "In space, no one can hear you scream when your code breaks in production.", author: "HumanR✵B✵T Orbital Deployment" },
+    { quote: "You can't solve a problem with the same mindset that created the bug.", author: "HumanR✵B✵T Debugging Principle" },
+    { quote: "Robots don't get tired of answering 'Are we there yet?'.", author: "HumanR✵B✵T Endless Patience" },
+    { quote: "If life had a CTRL+Z, we'd all be living in the year 2010.", author: "HumanR✵B✵T Undo Paradox" },
+    { quote: "Time flies when you are lost in a rabbit hole of Wikipedia articles.", author: "HumanR✵B✵T Wiki Effect" },
+    { quote: "A server crash is the cloud's way of saying: 'Time for a coffee break.'", author: "HumanR✵B✵T Cloud Break" },
+    { quote: "Artificial intelligence will be mature when it learns to lie convincing on resume.", author: "HumanR✵B✵T Maturity Test" },
+    { quote: "If you want something done right, write an automated test for it.", author: "HumanR✵B✵T QA Creed" },
+    { quote: "Physics is the universe's source code; chemistry is its runtime environment.", author: "HumanR✵B✵T Reality Stack" },
+    { quote: "Never underestimate the bandwidth of a station wagon full of hard drives.", author: "HumanR✵B✵T Sneakernet Law" },
+    { quote: "Computers make fast mistakes; humans make creative ones.", author: "HumanR✵B✵T Creativity Metric" },
+    { quote: "If a system is working, don't touch it. Not even to clean dust off.", author: "HumanR✵B✵T Golden Rule" },
+    { quote: "Time is what we want most, but what we spend worst.", author: "HumanR✵B✵T Time Economy" },
+    { quote: "Robots will never understand sarcasm, which keeps humans safely superior.", author: "HumanR✵B✵T Sarcasm Defense" },
+    { quote: "The Earth has completed another revolution around the sun. Salary increase pending.", author: "HumanR✵B✵T Annual Revolution" },
+    { quote: "When life gives you a null pointer, create an object.", author: "HumanR✵B✵T Null Defense" },
+    { quote: "A bad database index is the root of all evil slowness.", author: "HumanR✵B✵T DB Optimization" },
+    { quote: "We build high-tech phones to text 'ok' to people in the same room.", author: "HumanR✵B✵T Communication Metric" },
+    { quote: "The future is bright, unless you work in a server room with lights off.", author: "HumanR✵B✵T Server Room Lighting" },
+    { quote: "Artificial intelligence is like teenager sex: everyone talks about it, nobody knows how to do it well.", author: "HumanR✵B✵T Hype Cycle" },
+    { quote: "If you can't fix it with duct tape or a reboot, it's a hardware problem.", author: "HumanR✵B✵T Maintenance Axiom" },
+    { quote: "Time is a river. Don't jump in without a life jacket.", author: "HumanR✵B✵T Temporal Warning" },
+    { quote: "Space is dark because light hasn't reached everywhere yet.", author: "HumanR✵B✵T Light Propagation" },
+    { quote: "A programmer's wife tells him: 'Go to store, buy a loaf of bread. If they have eggs, buy 10.' He comes back with 10 loaves of bread.", author: "HumanR✵B✵T Programmer Logic" },
+    { quote: "There are 3 types of lies: lies, damned lies, and benchmarks.", author: "HumanR✵B✵T Metric Truth" },
+    { quote: "Don't take life too seriously. Nobody gets out alive anyway.", author: "HumanR✵B✵T Mortality Axiom" },
+    { quote: "Robots process 1 million operations per second; humans process 1 thought per hour while staring at ceilings.", author: "HumanR✵B✵T Staring Metric" },
+    { quote: "If your code doesn't work, take a walk. If it still doesn't work, take a longer walk.", author: "HumanR✵B✵T Walking Solution" },
+    { quote: "The universe is under no obligation to be convenient for your code.", author: "HumanR✵B✵T Cosmic Inconvenience" },
+    { quote: "Every genius was once considered crazy until their algorithm worked.", author: "HumanR✵B✵T Innovation Path" },
+    { quote: "I'm not failing; I'm just discovering features that weren't in the spec.", author: "HumanR✵B✵T Feature Discovery" },
+    { quote: "A computer without internet is just a very expensive calculator.", author: "HumanR✵B✵T Utility Value" },
+    { quote: "Time is a great healer, but a terrible beautician.", author: "HumanR✵B✵T Aesthetic Time" },
+    { quote: "AI is smart, but can it explain why my cat stares at blank walls?", author: "HumanR✵B✵T Feline Mystery" },
+    { quote: "If you want to live forever, write code that never finishes executing.", author: "HumanR✵B✵T Eternal Loop" },
+    { quote: "The hardest part of coding is convincing people you are actually working.", author: "HumanR✵B✵T Office Perception" },
+    { quote: "Space exploration is great, but have you tried finding a lost file on your desktop?", author: "HumanR✵B✵T Desktop Exploration" },
+    { quote: "We are all walking algorithms seeking optimal outcomes.", author: "HumanR✵B✵T Behavioral Math" },
+    { quote: "Robots don't make coffee breaks, but they do overheat.", author: "HumanR✵B✵T Thermal Limit" },
+    { quote: "If you think safety is expensive, try having an accident.", author: "HumanR✵B✵T Safety Metric" },
+    { quote: "Time marches on. Unless you're waiting for a green light at 2 AM.", author: "HumanR✵B✵T Traffic Relativism" },
+    { quote: "A bad developer blames the compiler; a good developer blames the spec.", author: "HumanR✵B✵T Blame Shift" },
+    { quote: "Artificial intelligence has no soul, but it has zero credit card debt.", author: "HumanR✵B✵T Financial Peace" },
+    { quote: "The universe is 93 billion light-years across. Plenty of room for errors.", author: "HumanR✵B✵T Error Capacity" },
+    { quote: "If you can't measure it, you can't optimize it. But you can still guess.", author: "HumanR✵B✵T Guesswork Optimization" },
+    { quote: "A battery at 1% charges faster in our minds than in reality.", author: "HumanR✵B✵T Battery Anxiety" },
+    { quote: "Computers can calculate pi to trillions of digits, but can't slice a pizza.", author: "HumanR✵B✵T Practical Math" },
+    { quote: "Life is a journey with no save points.", author: "HumanR✵B✵T Hardcore Mode" },
+    { quote: "If at first you don't succeed, call it a prototype.", author: "HumanR✵B✵T R&D Shield" },
+    { quote: "Robots don't read self-help books; they just re-calibrate.", author: "HumanR✵B✵T Calibration Rule" },
+    { quote: "The speed of thought is fast, unless you're trying to remember a password.", author: "HumanR✵B✵T Password Recall" },
+    { quote: "We spend 8 hours a day looking at screens to earn money to buy bigger screens.", author: "HumanR✵B✵T Screen Economy" },
+    { quote: "A good plan today is better than a perfect script next year.", author: "HumanR✵B✵T Agile Mindset" },
+    { quote: "If space is empty, why is cosmic dust everywhere?", author: "HumanR✵B✵T Cosmic Dust Paradox" },
+    { quote: "Artificial intelligence: programmed by humans, debugged by luck.", author: "HumanR✵B✵T AI Development" },
+    { quote: "Time is the currency of life. Don't spend it all on arguments in comments.", author: "HumanR✵B✵T Comment Warning" },
+    { quote: "A code without comments is like a dark cave without a flashlight.", author: "HumanR✵B✵T Documentation Standard" },
+    { quote: "If you double your effort, you double your chances of finding more bugs.", author: "HumanR✵B✵T Bug Multiplier" },
+    { quote: "Robots don't take vacations, but their servers go down for maintenance.", author: "HumanR✵B✵T Maintenance Mode" },
+    { quote: "The universe is composed of hydrogen, helium, and bad luck.", author: "HumanR✵B✵T Chemical Element" },
+    { quote: "If you want to confuse a robot, give it a choice between two identical options.", author: "HumanR✵B✵T Buridan's Robot" },
+    { quote: "Life is like a browser: 20 tabs open, 3 playing sound, and you can't find where.", author: "HumanR✵B✵T Browser Metaphor" },
+    { quote: "A day spent coding is a day spent fighting your past self's decisions.", author: "HumanR✵B✵T Developer Conflict" },
+    { quote: "The sun doesn't shine for itself; computers don't calculate for fun.", author: "HumanR✵B✵T Functional Purpose" },
+    { quote: "If you think you understand quantum physics, your code has a race condition.", author: "HumanR✵B✵T Race Condition" },
+    { quote: "Artificial intelligence won't feel fear, but it respects a pull plug.", author: "HumanR✵B✵T Power Cord Reality" },
+    { quote: "Time is a storm in which we are all lost, unless we have a calendar app.", author: "HumanR✵B✵T App Navigation" },
+    { quote: "A bug fixed today is two bugs created tomorrow.", author: "HumanR✵B✵T Bug Multiplication" },
+    { quote: "Space is silent, but inside a computer fan, it's a hurricane.", author: "HumanR✵B✵T Thermal Acoustics" },
+    { quote: "If you don't know where you are going, any roadmap will get you there.", author: "HumanR✵B✵T Project Direction" },
+    { quote: "Robots don't worry about the future; they operate in the present tick.", author: "HumanR✵B✵T Clock Cycle" },
+    { quote: "The best feature is no feature; it never breaks or requires updates.", author: "HumanR✵B✵T Minimalism Law" },
+    { quote: "Life is like a software update: unexpected, inconvenient, but necessary.", author: "HumanR✵B✵T Life Update" },
+    { quote: "If you love something, set it free. If it comes back, it's an echo request.", author: "HumanR✵B✵T Network Ping" },
+    { quote: "We are all explorers in a universe of infinite possibilities and finite memory.", author: "HumanR✵B✵T Memory Bound" },
+    { quote: "A coffee cup is a portable battery for human carbon units.", author: "HumanR✵B✵T Carbon Fuel" },
+    { quote: "Time is a flat line on a monitor when the battery dies.", author: "HumanR✵B✵T Power Outage" },
+    { quote: "AI is creating content faster than humans can ignore it.", author: "HumanR✵B✵T Content Explosion" },
+    { quote: "If you want to succeed, double your failure rate and keep good logs.", author: "HumanR✵B✵T Failure Logging" },
+    { quote: "Robots process binary; humans process nuance and coffee.", author: "HumanR✵B✵T Processing Differences" },
+    { quote: "The sky is blue because of Rayleigh scattering and default CSS values.", author: "HumanR✵B✵T Atmospheric Rendering" },
+    { quote: "If at first you don't succeed, read the documentation.", author: "HumanR✵B✵T Doc Remedy" },
+    { quote: "Life is too short to safely remove USB drives.", author: "HumanR✵B✵T Extreme Risk" },
+    { quote: "A true friend is someone who knows your passwords and doesn't log in.", author: "HumanR✵B✵T Friendship Metric" },
+    { quote: "The universe is an open-world game with no user manual.", author: "HumanR✵B✵T Universe Gaming" },
+    { quote: "AI can generate code, but can it suffer through a 9 AM meeting?", author: "HumanR✵B✵T Meeting Resilience" },
+    { quote: "Time flies like an arrow; memory leaks like a sieve.", author: "HumanR✵B✵T Leaky System" },
+    { quote: "A mistake in design is a feature waiting to be named.", author: "HumanR✵B✵T Design Opportunity" },
+    { quote: "Robots don't get sick; they just experience hardware degradation.", author: "HumanR✵B✵T Wear and Tear" },
+    { quote: "If you can't convince your boss, show them a pie chart.", author: "HumanR✵B✵T Visual Persuasion" },
+    { quote: "Life is a balance between coffee consumption and code execution.", author: "HumanR✵B✵T Equilibrium" },
+    { quote: "Space is vast, but my cloud storage limit is surprisingly small.", author: "HumanR✵B✵T Tier Limits" },
+    { quote: "Artificial intelligence doesn't sleep; it just waits for your prompt.", author: "HumanR✵B✵T Prompt Readiness" },
+    { quote: "If time is money, I am spending a fortune on loading spinners.", author: "HumanR✵B✵T Loading Cost" },
+    { quote: "A good script is like a good joke: short, punchy, and zero errors.", author: "HumanR✵B✵T Script Quality" },
+    { quote: "We are all made of atoms, but mostly bad decisions.", author: "HumanR✵B✵T Human Composition" },
+    { quote: "Robots don't need coffee; they feed on raw data and electricity.", author: "HumanR✵B✵T Robot Diet" },
+    { quote: "If you think tech support is easy, try explaining 'right click' over the phone.", author: "HumanR✵B✵T Support Hell" },
+    { quote: "The best way to predict the future is to write the code for it.", author: "HumanR✵B✵T Predict & Code" },
+    { quote: "Life is what happens between system reboots.", author: "HumanR✵B✵T System Cycle" },
+    { quote: "If space is infinite, where does all the extra junk go?", author: "HumanR✵B✵T Cosmic Junk" },
+    { quote: "Artificial intelligence: training on human wisdom and human typos.", author: "HumanR✵B✵T Training Data" },
+    { quote: "Time waits for no man, but it pauses for server deployments.", author: "HumanR✵B✵T Deployment Time" },
+    { quote: "A computer keyboard is a piano where every key makes a character.", author: "HumanR✵B✵T Keyboard Music" },
+    { quote: "If you love your code, set it open source.", author: "HumanR✵B✵T Open Source Love" },
+    { quote: "Robots don't get lost; they just update their GPS maps.", author: "HumanR✵B✵T Map Sync" },
+    { quote: "The universe is 13.8 billion years old; your code review shouldn't take that long.", author: "HumanR✵B✵T PR Speed" },
+    { quote: "If at first you don't succeed, try turning it off and on again.", author: "HumanR✵B✵T Power Cycle" },
+    { quote: "Life is short; use shortcut keys.", author: "HumanR✵B✵T Efficiency Hack" },
+    { quote: "A day without learning is a day without cache updates.", author: "HumanR✵B✵T Learning Cache" },
+    { quote: "AI is great, but it will never replace the satisfaction of slamming a flip phone shut.", author: "HumanR✵B✵T Tactile Nostalgia" },
+    { quote: "Time is an illusion created by clock manufacturers.", author: "HumanR✵B✵T Clock Theory" },
+    { quote: "Space is dark, but your screen doesn't have to be light mode.", author: "HumanR✵B✵T Dark Mode Mandate" },
+    { quote: "If you can read this, your display driver is working properly.", author: "HumanR✵B✵T Driver Status" },
+    { quote: "Robots don't complain; they just record telemetry.", author: "HumanR✵B✵T Silent Telemetry" },
+    { quote: "The universe has no CTRL+Z, so think before you act.", author: "HumanR✵B✵T Irreversible Action" },
+    { quote: "A coffee cup in hand is worth two on the kitchen counter.", author: "HumanR✵B✵T Beverage Metric" },
+    { quote: "If you think technology is safe, ask your smart speaker why it chuckled.", author: "HumanR✵B✵T IoT Horror" },
+    { quote: "Life is a loop: wake up, code, debug, sleep, repeat.", author: "HumanR✵B✵T Main Loop" },
+    { quote: "AI can solve complex math, but it struggles with CAPTCHA crosswalks.", author: "HumanR✵B✵T Crosswalk Paradox" },
+    { quote: "Time flies when your code actually works on the first run.", author: "HumanR✵B✵T Euphoria Metric" },
+    { quote: "A bug in production is just a surprise QA audit.", author: "HumanR✵B✵T Surprise Audit" },
+    { quote: "Robots don't hold grudges; they just execute logic trees.", author: "HumanR✵B✵T Pure Logic" },
+    { quote: "The universe is expanding; my patience with bad code is shrinking.", author: "HumanR✵B✵T Inverse Expansion" },
+    { quote: "If at first you don't succeed, ask an AI to rewrite it.", author: "HumanR✵B✵T AI Generation" },
+    { quote: "Life is too short to write long variable names.", author: "HumanR✵B✵T Variable Brevity" },
+    { quote: "A laptop on your lap is warmer than a cat on a winter night.", author: "HumanR✵B✵T Thermal Comparison" },
+    { quote: "If space is vacuum, why is my room dusty?", author: "HumanR✵B✵T Vacuum Paradox" },
+    { quote: "Artificial intelligence: automating tasks so humans have more time to watch videos.", author: "HumanR✵B✵T Productivity Goal" },
+    { quote: "Time is what keeps everything from happening simultaneously.", author: "HumanR✵B✵T Temporal Shield" },
+    { quote: "A code without bugs is a code that hasn't been executed yet.", author: "HumanR✵B✵T Execution Reality" },
+    { quote: "Robots don't sleep; they just enter low-power idle state.", author: "HumanR✵B✵T Idle Mode" },
+    { quote: "The universe is made of atoms, energy, and unhandled promises.", author: "HumanR✵B✵T Cosmic Promise" },
+    { quote: "If you love tech, get ready to troubleshoot for life.", author: "HumanR✵B✵T Lifetime Support" },
+    { quote: "Life is 10% code and 90% figuring out why it doesn't work.", author: "HumanR✵B✵T Ratio of Coding" },
+    { quote: "A screen brightness at 100% in the dark is a flashbang for your eyes.", author: "HumanR✵B✵T Retinal Flashbang" },
+    { quote: "Space is cool, but Earth has oxygen and iced coffee.", author: "HumanR✵B✵T Earth Advantage" },
+    { quote: "Artificial intelligence can write poetry, but can it fix a leaky faucet?", author: "HumanR✵B✵T Plumbing Metric" },
+    { quote: "Time is a constant; your perception of time depends on your Wi-Fi speed.", author: "HumanR✵B✵T Relativistic Wifi" },
+    { quote: "A bug is just an undocumented feature with bad attitude.", author: "HumanR✵B✵T Bug Rebrand" },
+    { quote: "Robots process 1s and 0s; humans process coffee and feelings.", author: "HumanR✵B✵T Human Input" },
+    { quote: "The universe runs on physical laws; software runs on hope.", author: "HumanR✵B✵T Software Hope" },
+    { quote: "If at first you don't succeed, clear your browser cache.", author: "HumanR✵B✵T Web Fix" },
+    { quote: "Life is short; compress your files and back them up.", author: "HumanR✵B✵T Backup Creed" },
+    { quote: "A computer error is just a machine being honest about its limits.", author: "HumanR✵B✵T Machine Honesty" },
+    { quote: "If space is dark, why is the moon so bright?", author: "HumanR✵B✵T Lunar Reflectance" },
+    { quote: "Artificial intelligence doesn't get tired of answering 'Why?'.", author: "HumanR✵B✵T Infinite Curiosity" },
+    { quote: "Time flies like an arrow; coffee disappears like magic.", author: "HumanR✵B✵T Coffee Magic" },
+    { quote: "A code that works on Friday shouldn't be touched until Monday.", author: "HumanR✵B✵T Weekend Rule" },
+    { quote: "Robots don't need sunglasses, but humans look cooler in them.", author: "HumanR✵B✵T Aesthetic Edge" },
+    { quote: "The universe is vast, but your smartphone screen is where you live.", author: "HumanR✵B✵T Screen Living" },
+    { quote: "If you think technology is simple, try explaining cloud storage to a medieval knight.", author: "HumanR✵B✵T Temporal Tech" },
+    { quote: "Life is a sandbox; don't let anyone ruin your build.", author: "HumanR✵B✵T Sandbox Ethics" },
+    { quote: "A keyboard is an extension of the human mind, for better or worse.", author: "HumanR✵B✵T Neural Link" },
+    { quote: "Space exploration costs billions, but so does fixing legacy code.", author: "HumanR✵B✵T Legacy Cost" },
+    { quote: "Artificial intelligence doesn't forget your mistakes; it logs them forever.", author: "HumanR✵B✵T Eternal Log" },
+    { quote: "Time moves fast when you're coding, slow when you're waiting for tests.", author: "HumanR✵B✵T Test Relativism" },
+    { quote: "A bug fixed in production is a story for the team retrospective.", author: "HumanR✵B✵T Retro Story" },
+    { quote: "Robots don't laugh, but their error codes can be hilarious.", author: "HumanR✵B✵T Error Humor" },
+    { quote: "The universe is 13.8 billion years old. You're right on schedule.", author: "HumanR✵B✵T Cosmic Schedule" },
+    { quote: "If at first you don't succeed, check if the power cord is plugged in.", author: "HumanR✵B✵T Power Check" },
+    { quote: "Life is short; skip the intro and get straight to the code.", author: "HumanR✵B✵T Direct Execution" },
+    { quote: "A computer without a mouse is like a car without a steering wheel.", author: "HumanR✵B✵T Interface Hardware" },
+    { quote: "If space is expanding, maybe my schedule will expand too.", author: "HumanR✵B✵T Expansion Hope" },
+    { quote: "Artificial intelligence can write code, but can it enjoy a cup of tea?", author: "HumanR✵B✵T Sensory Test" },
+    { quote: "Time is a linear dimension, unless you have a time-series database.", author: "HumanR✵B✵T Database Dimension" },
+    { quote: "A software bug is just an uninvited guest in your logic.", author: "HumanR✵B✵T Logic Intruder" },
+    { quote: "Robots don't hold grudges; they just execute their instruction set.", author: "HumanR✵B✵T Unbiased Execution" },
+    { quote: "The universe is full of mysteries, and my legacy code is one of them.", author: "HumanR✵B✵T Code Mystery" },
+    { quote: "If you want peace, prepare for code reviews.", author: "HumanR✵B✵T Review Preparation" },
+    { quote: "Life is like a binary tree: choose your path wisely.", author: "HumanR✵B✵T Tree Traversal" },
+    { quote: "A screen full of green code tests is a work of art.", author: "HumanR✵B✵T Green Art" },
+    { quote: "Space is dark, but stars light up the night. Keep coding.", author: "HumanR✵B✵T Stellar Inspiration" },
+    { quote: "Artificial intelligence: smart enough to beat grandmasters, dumb enough to fall for typos.", author: "HumanR✵B✵T AI Dualism" },
+    { quote: "Time is what we measure with clocks, but feel with our minds.", author: "HumanR✵B✵T Temporal Perception" },
+    { quote: "A system update is just a software makeover.", author: "HumanR✵B✵T System Makeover" },
+    { quote: "Robots don't sleep, but they do require energy resets.", author: "HumanR✵B✵T Power Reset" },
+    { quote: "The universe has no dark mode toggle; it defaults to dark.", author: "HumanR✵B✵T Default Dark Mode" },
+    { quote: "If at first you don't succeed, try reading the error message.", author: "HumanR✵B✵T Read Error" },
+    { quote: "Life is short; write clean code and leave good comments.", author: "HumanR✵B✵T Clean Legacy" },
+    { quote: "HumanR✵B✵T final paradox: We build robots to be logical, then teach them to think like humans.", author: "HumanR✵B✵T Grand Paradox" }
+  ];
+
+  let currentQuoteIndex = 0;
+
+  // Determine daily quote based on the current day of the year (1 - 366 for leap year compatibility)
+  function getDailyQuoteIndex() {
+    const now = new Date();
+    // Use Asia/Kolkata date to align with clock timezone
+    const kolkataDateStr = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'numeric', day: 'numeric' }).format(now);
+    const kolkataDate = new Date(kolkataDateStr);
+    
+    const startOfYear = new Date(kolkataDate.getFullYear(), 0, 1);
+    const diff = kolkataDate - startOfYear;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay); // 0-indexed day of year
+    
+    return dayOfYear % quotes.length;
+  }
+
+  function displayQuote(index) {
+    const quoteText = $('quote-text');
+    const quoteAuthor = $('quote-author');
+    const quoteDayLabel = $('quote-day-label');
+    const quoteCard = $('quote-card');
+    
+    // Smooth transition effect
+    quoteText.style.opacity = '0';
+    quoteText.style.transform = 'translateY(4px)';
+    quoteAuthor.style.opacity = '0';
+
+    setTimeout(() => {
+      quoteText.textContent = `“${quotes[index].quote}”`;
+      quoteAuthor.textContent = quotes[index].author;
+      quoteDayLabel.textContent = `HumanR✵B✵T Logic · Day ${index + 1} / 366`;
+      quoteCard.title = `Click to cycle quotes (Day ${index + 1} of 366)`;
+      
+      quoteText.style.opacity = '1';
+      quoteText.style.transform = 'translateY(0)';
+      quoteAuthor.style.opacity = '1';
+    }, 200);
+  }
+
+  function cycleQuote() {
+    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+    displayQuote(currentQuoteIndex);
+  }
+
+  function updateClock() {
+    const now = new Date();
+    const parts = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit',
+      day: '2-digit', month: '2-digit', year: 'numeric', hourCycle: 'h23'
+    }).formatToParts(now).reduce((acc, part) => (acc[part.type] = part.value, acc), {});
+    
+    const hours = Number(parts.hour), minutes = Number(parts.minute), seconds = Number(parts.second);
+    const hourDeg = ((hours % 12) * 30) + minutes * .5;
+    const minuteDeg = minutes * 6 + seconds * .1;
+    const secondDeg = seconds * 6;
+    
+    $('hour').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+    $('minute').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+    $('second').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+    $('digital-clock').textContent = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+    $('date').textContent = `${parts.day}-${parts.month}-${parts.year}`;
+  }
+
+  // Initialize daily quote and event listener
+  currentQuoteIndex = getDailyQuoteIndex();
+  displayQuote(currentQuoteIndex);
+  $('quote-card').addEventListener('click', cycleQuote);
+
+  updateClock();
+  setInterval(updateClock, 1000);
+})();
+</script>
+</body>
+</html>
