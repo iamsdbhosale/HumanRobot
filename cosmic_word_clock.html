@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b1b">
+<title>HumanR✵B✵T | Cosmic Word Clock</title>
+<style>
+  :root {
+    --gold: #ffd889;
+    --orange: #ff914d;
+    --cyan: #8cecff;
+    --ink: #080b1b;
+    --glass: rgba(13, 18, 42, .66);
+  }
+  * { box-sizing: border-box; }
+  html { min-height: 100%; }
+  body {
+    margin: 0; min-height: 100vh; padding: 28px 16px 38px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    overflow-x: hidden; color: #f8f5ee;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    background: #070a18;
+    isolation: isolate;
+  }
+  body::before, body::after {
+    content: ""; position: fixed; inset: -20%; z-index: -3; pointer-events: none;
+  }
+  body::before {
+    background:
+      radial-gradient(ellipse at 18% 20%, rgba(79, 64, 171, .48), transparent 35%),
+      radial-gradient(ellipse at 82% 24%, rgba(255, 112, 49, .28), transparent 30%),
+      radial-gradient(ellipse at 52% 70%, rgba(15, 116, 164, .3), transparent 38%),
+      linear-gradient(150deg, #050714, #10132d 48%, #170e20);
+    animation: cosmicDrift 22s ease-in-out infinite alternate;
+  }
+  body::after {
+    z-index: -2; opacity: .55;
+    background-image:
+      radial-gradient(2px 2px at 12% 24%, #fff 50%, transparent 100%),
+      radial-gradient(1px 1px at 28% 76%, #fff 50%, transparent 100%),
+      radial-gradient(2px 2px at 68% 19%, #ffe5b0 50%, transparent 100%),
+      radial-gradient(1px 1px at 82% 61%, #fff 50%, transparent 100%),
+      radial-gradient(1px 1px at 48% 42%, #fff 50%, transparent 100%),
+      radial-gradient(2px 2px at 91% 87%, #a9eaff 50%, transparent 100%);
+    background-size: 340px 280px;
+    animation: stars 40s linear infinite;
+  }
+  .aurora {
+    position: fixed; z-index: -1; pointer-events: none; width: 70vw; height: 34vw;
+    min-height: 240px; left: 15%; bottom: -16%; border-radius: 50%;
+    background: linear-gradient(90deg, transparent, rgba(255,126,60,.18), rgba(91,204,255,.16), transparent);
+    filter: blur(52px); transform: rotate(-9deg);
+    animation: aurora 12s ease-in-out infinite alternate;
+  }
+  .landscape {
+    position: fixed; z-index: -1; pointer-events: none; inset: auto 0 0; height: 31vh; min-height: 180px;
+    background: linear-gradient(180deg, transparent, rgba(4,7,18,.55) 25%, #050713 100%);
+  }
+  .landscape::before, .landscape::after {
+    content: ""; position: absolute; inset: 0;
+    background: #0a1022;
+    clip-path: polygon(0 65%, 10% 42%, 19% 61%, 31% 20%, 43% 62%, 54% 34%, 64% 69%, 77% 25%, 88% 58%, 100% 36%, 100% 100%, 0 100%);
+    opacity: .8;
+  }
+  .landscape::after {
+    background: linear-gradient(180deg, #21182a, #070a17);
+    clip-path: polygon(0 77%, 14% 56%, 25% 76%, 39% 45%, 52% 79%, 69% 51%, 82% 75%, 94% 48%, 100% 62%, 100% 100%, 0 100%);
+    opacity: .85;
+  }
+  .shell { width: min(100%, 480px); text-align: center; position: relative; }
+  .brand {
+    margin: 0 0 8px; font-size: clamp(1.45rem, 5vw, 2rem); letter-spacing: .12em;
+    font-weight: 800; color: var(--gold); text-shadow: 0 0 22px rgba(255,177,81,.35);
+  }
+  .tagline { margin: 0 0 24px; color: #c7d4e9; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; }
+  .panel {
+    padding: clamp(20px, 5vw, 30px); border: 1px solid rgba(255,218,153,.28);
+    border-radius: 28px; background: var(--glass); backdrop-filter: blur(18px);
+    box-shadow: 0 24px 80px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.07);
+  }
+  .digital {
+    font-variant-numeric: tabular-nums; font-size: clamp(1.55rem, 7vw, 2.3rem);
+    font-weight: 750; letter-spacing: .08em; color: #fff8e8;
+    text-shadow: 0 0 24px rgba(255,183,91,.35);
+  }
+  .meta { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 9px 0 22px; color: #c1cbe0; font-size: .82rem; }
+  .meta span { padding: 5px 10px; border: 1px solid rgba(255,255,255,.1); border-radius: 99px; background: rgba(255,255,255,.04); }
+  .clock {
+    width: min(64vw, 250px); aspect-ratio: 1; margin: 0 auto 22px; position: relative;
+    border-radius: 50%; overflow: hidden; border: 2px solid rgba(255,216,137,.8);
+    background: #11152a url("HumanRobot.jpg") no-repeat center / cover;
+    box-shadow: 0 0 0 7px rgba(255,210,130,.055), 0 0 42px rgba(255,142,68,.25), inset 0 0 28px rgba(0,0,0,.55);
+  }
+  .clock::before { content:""; position:absolute; inset:0; border-radius:50%; background: radial-gradient(circle, transparent 28%, rgba(5,8,20,.16) 68%, rgba(5,8,20,.58)); }
+  .hand { position: absolute; z-index: 2; left: 50%; bottom: 50%; transform-origin: bottom center; transform: translateX(-50%) rotate(0deg); border-radius: 99px; }
+  .hour { width: 6px; height: 27%; background: linear-gradient(#fff4cb, #ffad43); box-shadow: 0 0 9px #ffba57; }
+  .minute { width: 4px; height: 37%; background: linear-gradient(#d7fbff, #62d7ff); box-shadow: 0 0 9px #68dfff; }
+  .second { width: 2px; height: 42%; background: #ff6b57; box-shadow: 0 0 8px #ff6b57; }
+  .hub { position:absolute; z-index:3; width:13px; height:13px; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; background:#fff1c7; border:3px solid #ff9b45; box-shadow:0 0 12px #ffad43; }
+  .word-card {
+    padding: 19px 14px 17px; border-radius: 19px;
+    background: linear-gradient(135deg, rgba(255,190,96,.13), rgba(115,198,255,.08));
+    border: 1px solid rgba(255,216,137,.25);
+  }
+  .eyebrow { margin: 0 0 8px; font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); }
+  .time-words {
+    min-height: 2.6em; display: flex; justify-content: center; align-items: center;
+    font-size: clamp(1.35rem, 5.5vw, 2rem); line-height: 1.25; font-weight: 800;
+    color: var(--gold); text-wrap: balance; text-shadow: 0 0 22px rgba(255,166,70,.3);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .exact-words { margin: 8px 0 0; color: #d8e0f0; font-size: .9rem; }
+  .hint { margin: 17px 0 0; color: #aab6cf; font-size: .76rem; line-height: 1.5; }
+  .footer { margin-top: 19px; color: #b4bed1; font-size: .66rem; letter-spacing: .12em; }
+  @keyframes cosmicDrift { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(2%, 2%, 0) scale(1.08); } }
+  @keyframes stars { from { background-position: 0 0; } to { background-position: 340px 560px; } }
+  @keyframes aurora { from { transform: translateX(-7%) rotate(-9deg); opacity: .5; } to { transform: translateX(9%) rotate(8deg); opacity: .95; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  @media (max-height: 760px) { body { padding-top: 18px; padding-bottom: 20px; } .tagline { margin-bottom: 15px; } .panel { padding: 18px; } .clock { width: min(48vw, 205px); margin-bottom: 16px; } .meta { margin-bottom: 15px; } }
+</style>
+</head>
+<body>
+<div class="aurora"></div><div class="landscape"></div>
+<main class="shell">
+  <h1 class="brand">HumanR✵B✵T</h1>
+  <p class="tagline">Time, beautifully expressed</p>
+  <section class="panel" aria-label="Live analog and digital clock">
+    <div class="digital" id="digital-clock">00:00:00</div>
+    <div class="meta"><span id="timezone">India Standard Time · UTC+05:30</span><span id="date">Loading date…</span></div>
+    <div class="clock" role="img" aria-label="Analog clock face">
+      <div class="hand hour" id="hour"></div>
+      <div class="hand minute" id="minute"></div>
+      <div class="hand second" id="second"></div>
+      <div class="hub"></div>
+    </div>
+    <div class="word-card" aria-live="polite">
+      <p class="eyebrow">The time in words</p>
+      <div class="time-words" id="time-words">It is twelve o’clock</div>
+      <p class="exact-words" id="exact-words">12:00 — twelve o’clock</p>
+    </div>
+    <p class="hint">A little past the hour, half past, quarter past, or quarter to — time told in natural English.</p>
+  </section>
+  <div class="footer">COURAGE · HERITAGE · INNOVATION · INTELLIGENCE · TOMORROW</div>
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const numberWords = ['twelve','one','two','three','four','five','six','seven','eight','nine','ten','eleven'];
+  function minutePhrase(minutes, hour) {
+    const nextHour = numberWords[(hour % 12 + 1) % 12];
+    const currentHour = numberWords[hour % 12];
+    if (minutes === 0) return `${currentHour} o’clock`;
+    if (minutes === 15) return `quarter past ${currentHour}`;
+    if (minutes === 30) return `half past ${currentHour}`;
+    if (minutes === 45) return `quarter to ${nextHour}`;
+    if (minutes < 30) return `${numberWords[minutes]} ${minutes === 1 ? 'minute' : 'minutes'} past ${currentHour}`;
+    const remaining = 60 - minutes;
+    return `${numberWords[remaining]} ${remaining === 1 ? 'minute' : 'minutes'} to ${nextHour}`;
+  }
+  function updateClock() {
+    const now = new Date();
+    // Display and calculate using India Standard Time, independent of the computer's time zone.
+    const parts = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit',
+      day: '2-digit', month: '2-digit', year: 'numeric', hourCycle: 'h23'
+    }).formatToParts(now).reduce((acc, part) => (acc[part.type] = part.value, acc), {});
+    const hours = Number(parts.hour), minutes = Number(parts.minute), seconds = Number(parts.second);
+    const hourDeg = ((hours % 12) * 30) + minutes * .5;
+    const minuteDeg = minutes * 6 + seconds * .1;
+    const secondDeg = seconds * 6;
+    $('hour').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+    $('minute').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+    $('second').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+    $('digital-clock').textContent = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+    $('date').textContent = `${parts.day}-${parts.month}-${parts.year}`;
+    const phrase = minutePhrase(minutes, hours);
+    $('time-words').textContent = `It is ${phrase}`;
+    const hour12 = hours % 12 || 12;
+    const exact = `${hour12}:${String(minutes).padStart(2,'0')}`;
+    $('exact-words').textContent = `${exact} — ${phrase}${hours < 12 ? ' · morning' : hours < 17 ? ' · afternoon' : hours < 21 ? ' · evening' : ' · night'}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+})();
+</script>
+</body>
+</html>
