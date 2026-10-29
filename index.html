@@ -643,7 +643,7 @@
     { quote: "HumanR✵B✵T final paradox: We build robots to be logical, then teach them to think like humans.", author: "HumanR✵B✵T Grand Paradox" }
   ];
 
-  let currentQuoteIndex = 0;
+  let currentQuoteIndex = 303;
 
   // Determine daily quote based on the current day of the year (1 - 366 for leap year compatibility)
   function getDailyQuoteIndex() {
@@ -684,7 +684,7 @@
   }
 
   function cycleQuote() {
-    currentQuoteIndex = (currentQuoteIndex + 301) % quotes.length;
+    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
     displayQuote(currentQuoteIndex);
   }
 
