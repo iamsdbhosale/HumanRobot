@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0f12">
+  <title>HumanRobot Image Gallery</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh; background: #0d0f12; color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    .page-header {
+      position: sticky; top: 0; z-index: 5; display: flex; align-items: center;
+      justify-content: space-between; gap: 16px; padding: 16px clamp(16px, 4vw, 42px);
+      background: #101318ed; border-bottom: 1px solid #ffffff18; backdrop-filter: blur(12px);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid #38ef7d; }
+    h1 { font-size: 1.15rem; }
+    .subtitle { color: #aeb5c0; font-size: .82rem; margin-top: 3px; }
+    .back-link {
+      color: #fff; text-decoration: none; border: 1px solid #ffffff40;
+      border-radius: 22px; padding: 9px 14px; font-size: .86rem; white-space: nowrap;
+    }
+    .back-link:hover { background: #252b35; }
+    main { width: min(1400px, 100%); margin: 0 auto; padding: 26px clamp(14px, 3vw, 32px) 42px; }
+    .intro { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 20px; }
+    .intro h2 { font-size: 1.25rem; }
+    .count { color: #aeb5c0; font-size: .9rem; }
+    .gallery {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
+      gap: 16px;
+    }
+    .gallery-item {
+      display: block; width: 100%; aspect-ratio: 3 / 4; overflow: hidden;
+      border: 1px solid #ffffff20; border-radius: 12px; background: #171a20;
+      cursor: zoom-in; padding: 0;
+    }
+    .gallery-item img {
+      display: block; width: 100%; height: 100%; object-fit: contain;
+      transition: transform .25s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.035); }
+    .lightbox {
+      position: fixed; inset: 0; z-index: 20; display: none; align-items: center;
+      justify-content: center; padding: 60px 64px; background: #000f;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .lightbox button {
+      position: absolute; border: 1px solid #ffffff45; background: #171a20d9;
+      color: white; cursor: pointer; border-radius: 50%; width: 44px; height: 44px;
+      font-size: 1.5rem; display: grid; place-items: center;
+    }
+    .close-btn { top: 16px; right: 18px; }
+    .prev-btn { left: 14px; top: 50%; transform: translateY(-50%); }
+    .next-btn { right: 14px; top: 50%; transform: translateY(-50%); }
+    .image-counter {
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      padding: 7px 12px; border-radius: 20px; color: #fff; background: #171a20d9;
+      font-size: .85rem;
+    }
+    @media (max-width: 520px) {
+      .page-header { padding: 12px; }
+      .avatar { width: 36px; height: 36px; }
+      h1 { font-size: 1rem; }
+      .subtitle { font-size: .72rem; }
+      .back-link { padding: 8px 10px; font-size: .78rem; }
+      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .lightbox { padding: 58px 12px; }
+      .lightbox img { max-width: 100%; max-height: 85%; }
+      .prev-btn { left: 8px; }
+      .next-btn { right: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="brand">
+      <img src="HumanRobot.jpg" alt="HumanRobot profile" class="avatar">
+      <div>
+        <h1>HumanRobot</h1>
+        <p class="subtitle">Cosmic &amp; Mental Power</p>
+      </div>
+    </div>
+    <a class="back-link" href="status.html">← Back to status</a>
+  </header>
+
+  <main>
+    <div class="intro">
+      <h2>Image Gallery</h2>
+      <span class="count">18 images</span>
+    </div>
+    <section class="gallery" aria-label="Image gallery">
+      <button class="gallery-item" data-index="0" aria-label="Open image s18"><img src="img/s18.png" alt="Gallery image s18" loading="lazy"></button>
+      <button class="gallery-item" data-index="1" aria-label="Open image s17"><img src="img/s17.png" alt="Gallery image s17" loading="lazy"></button>
+      <button class="gallery-item" data-index="2" aria-label="Open image s16"><img src="img/s16.png" alt="Gallery image s16" loading="lazy"></button>
+      <button class="gallery-item" data-index="3" aria-label="Open image s15"><img src="img/s15.png" alt="Gallery image s15" loading="lazy"></button>
+      <button class="gallery-item" data-index="4" aria-label="Open image s14"><img src="img/s14.png" alt="Gallery image s14" loading="lazy"></button>
+      <button class="gallery-item" data-index="5" aria-label="Open image s13"><img src="img/s13.png" alt="Gallery image s13" loading="lazy"></button>
+      <button class="gallery-item" data-index="6" aria-label="Open image s12"><img src="img/s12.png" alt="Gallery image s12" loading="lazy"></button>
+      <button class="gallery-item" data-index="7" aria-label="Open image s11"><img src="img/s11.png" alt="Gallery image s11" loading="lazy"></button>
+      <button class="gallery-item" data-index="8" aria-label="Open image s10"><img src="img/s10.png" alt="Gallery image s10" loading="lazy"></button>
+      <button class="gallery-item" data-index="9" aria-label="Open image s9"><img src="img/s9.png" alt="Gallery image s9" loading="lazy"></button>
+      <button class="gallery-item" data-index="10" aria-label="Open image s8"><img src="img/s8.png" alt="Gallery image s8" loading="lazy"></button>
+      <button class="gallery-item" data-index="11" aria-label="Open image s7"><img src="img/s7.png" alt="Gallery image s7" loading="lazy"></button>
+      <button class="gallery-item" data-index="12" aria-label="Open image s6"><img src="img/s6.png" alt="Gallery image s6" loading="lazy"></button>
+      <button class="gallery-item" data-index="13" aria-label="Open image s5"><img src="img/s5.png" alt="Gallery image s5" loading="lazy"></button>
+      <button class="gallery-item" data-index="14" aria-label="Open image s4"><img src="img/s4.png" alt="Gallery image s4" loading="lazy"></button>
+      <button class="gallery-item" data-index="15" aria-label="Open image s3"><img src="img/s3.png" alt="Gallery image s3" loading="lazy"></button>
+      <button class="gallery-item" data-index="16" aria-label="Open image s2"><img src="img/s2.png" alt="Gallery image s2" loading="lazy"></button>
+      <button class="gallery-item" data-index="17" aria-label="Open image s1"><img src="img/s1.png" alt="Gallery image s1" loading="lazy"></button>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="close-btn" id="closeBtn" aria-label="Close viewer">×</button>
+    <button class="prev-btn" id="prevBtn" aria-label="Previous image">‹</button>
+    <img id="lightboxImage" src="" alt="Selected gallery image">
+    <button class="next-btn" id="nextBtn" aria-label="Next image">›</button>
+    <div class="image-counter" id="imageCounter"></div>
+  </div>
+
+  <script>
+    (() => {
+      const imageSources = Array.from({ length: 18 }, (_, i) => `img/s${18 - i}.png`);
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImage = document.getElementById("lightboxImage");
+      const counter = document.getElementById("imageCounter");
+      let currentIndex = 0;
+
+      function showImage(index) {
+        currentIndex = (index + imageSources.length) % imageSources.length;
+        lightboxImage.src = imageSources[currentIndex];
+        lightboxImage.alt = `Gallery image ${18 - currentIndex}`;
+        counter.textContent = `${currentIndex + 1} / ${imageSources.length}`;
+      }
+      function openViewer(index) {
+        showImage(index);
+        lightbox.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeViewer() {
+        lightbox.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll(".gallery-item").forEach((item) => {
+        item.addEventListener("click", () => openViewer(Number(item.dataset.index)));
+      });
+      document.getElementById("closeBtn").addEventListener("click", closeViewer);
+      document.getElementById("prevBtn").addEventListener("click", () => showImage(currentIndex - 1));
+      document.getElementById("nextBtn").addEventListener("click", () => showImage(currentIndex + 1));
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) closeViewer();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (!lightbox.classList.contains("open")) return;
+        if (event.key === "Escape") closeViewer();
+        if (event.key === "ArrowLeft") showImage(currentIndex - 1);
+        if (event.key === "ArrowRight") showImage(currentIndex + 1);
+      });
+    })();
+  </script>
+</body>
+</html>

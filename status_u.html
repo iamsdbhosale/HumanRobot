@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0f12">
+  <title>HumanRobot Status</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh; background: #0d0f12; color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .status-container {
+      position: relative; width: 100%; max-width: 480px; height: 100vh; max-height: 900px;
+      min-height: 520px; background: #000; display: flex; align-items: center;
+      justify-content: center; overflow: hidden; box-shadow: 0 20px 50px #000c;
+    }
+    .progress-container {
+      position: absolute; z-index: 10; top: 12px; left: 12px; right: 12px;
+      display: flex; gap: 5px;
+    }
+    .progress-segment { flex: 1; height: 3px; background: #ffffff59; border-radius: 3px; overflow: hidden; }
+    .progress-fill { width: 0; height: 100%; background: #fff; }
+    .status-header {
+      position: absolute; z-index: 10; top: 25px; left: 16px; right: 16px;
+      display: flex; align-items: center; gap: 12px; text-shadow: 0 2px 5px #000;
+    }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #38ef7d; object-fit: cover; }
+    .user-info { display: flex; flex-direction: column; }
+    .username { font-weight: 700; font-size: .95rem; }
+    .time-posted { font-size: .75rem; color: #ffffffbf; }
+    .slides-wrapper { position: absolute; inset: 0; }
+    .slide {
+      position: absolute; inset: 0; display: flex; justify-content: center; align-items: center;
+      opacity: 0; transition: opacity .35s ease; pointer-events: none;
+    }
+    .slide.active { opacity: 1; }
+    .slide img { width: 100%; height: 100%; object-fit: contain; }
+    .tap-zone { position: absolute; z-index: 5; top: 65px; bottom: 0; width: 35%; cursor: pointer; }
+    .tap-zone.left { left: 0; }
+    .tap-zone.right { right: 0; }
+    .status-footer {
+      position: absolute; z-index: 12; bottom: 14px; left: 0; right: 0;
+      display: flex; justify-content: center; pointer-events: none;
+    }
+    .gallery-link {
+      pointer-events: auto; color: #fff; text-decoration: none; font-size: .85rem;
+      background: #171a20dc; border: 1px solid #ffffff45; border-radius: 22px;
+      padding: 9px 16px; backdrop-filter: blur(8px);
+    }
+    .gallery-link:hover { background: #303640; }
+    @media (min-width: 600px) {
+      .status-container { height: min(100vh, 900px); border-radius: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="status-container" id="statusContainer" aria-label="HumanRobot status stories">
+    <div class="progress-container" id="progressContainer" aria-hidden="true"></div>
+    <header class="status-header">
+      <img src="HumanRobot.jpg" alt="HumanRobot profile" class="avatar">
+      <div class="user-info">
+        <span class="username">HumanRobot</span>
+        <span class="time-posted">Cosmic &amp; Mental Power</span>
+      </div>
+    </header>
+
+    <div class="slides-wrapper" id="slidesWrapper">
+      <div class="slide active"><img src="img/s24.png" alt="Status image 1"></div>
+      <div class="slide"><img src="img/s23.png" alt="Status image 2"></div>
+      <div class="slide"><img src="img/s22.png" alt="Status image 3"></div>
+      <div class="slide"><img src="img/s21.png" alt="Status image 4"></div>
+      <div class="slide"><img src="img/s20.png" alt="Status image 5"></div>
+      <div class="slide"><img src="img/s19.png" alt="Status image 6"></div>
+    </div>
+
+    <div class="tap-zone left" id="tapLeft" aria-label="Previous status"></div>
+    <div class="tap-zone right" id="tapRight" aria-label="Next status"></div>
+    <div class="status-footer">
+      <a class="gallery-link" href="status_gallery.html">View image gallery <span aria-hidden="true">→</span></a>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const DURATION = 6000;
+      const slides = [...document.querySelectorAll(".slide")];
+      const progressContainer = document.getElementById("progressContainer");
+      const container = document.getElementById("statusContainer");
+      let currentIndex = 0, startTime = 0, elapsedTime = 0;
+      let animationFrameId = 0, isPaused = false;
+
+      slides.forEach(() => {
+        const segment = document.createElement("div");
+        segment.className = "progress-segment";
+        const fill = document.createElement("div");
+        fill.className = "progress-fill";
+        segment.appendChild(fill);
+        progressContainer.appendChild(segment);
+      });
+      const fills = [...document.querySelectorAll(".progress-fill")];
+
+      function updateProgress(timestamp) {
+        if (!startTime) startTime = timestamp;
+        if (!isPaused) {
+          elapsedTime = timestamp - startTime;
+          fills[currentIndex].style.width = Math.min(elapsedTime / DURATION * 100, 100) + "%";
+          if (elapsedTime >= DURATION) { nextSlide(); return; }
+        }
+        animationFrameId = requestAnimationFrame(updateProgress);
+      }
+
+      function showSlide(index) {
+        cancelAnimationFrame(animationFrameId);
+        currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, i) => slide.classList.toggle("active", i === currentIndex));
+        fills.forEach((fill, i) => fill.style.width = i < currentIndex ? "100%" : "0%");
+        startTime = 0;
+        elapsedTime = 0;
+        animationFrameId = requestAnimationFrame(updateProgress);
+      }
+      function nextSlide() { showSlide((currentIndex + 1) % slides.length); }
+      function prevSlide() { showSlide((currentIndex - 1 + slides.length) % slides.length); }
+
+      document.getElementById("tapRight").addEventListener("click", nextSlide);
+      document.getElementById("tapLeft").addEventListener("click", prevSlide);
+
+      const pause = () => { isPaused = true; };
+      const resume = () => {
+        if (isPaused) {
+          isPaused = false;
+          startTime = performance.now() - elapsedTime;
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(updateProgress);
+        }
+      };
+      container.addEventListener("mousedown", pause);
+      window.addEventListener("mouseup", resume);
+      container.addEventListener("mouseleave", resume);
+      container.addEventListener("touchstart", pause, { passive: true });
+      container.addEventListener("touchend", resume, { passive: true });
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) pause(); else resume();
+      });
+      showSlide(0);
+    })();
+  </script>
+</body>
+</html>
