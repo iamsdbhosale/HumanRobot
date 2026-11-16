@@ -131,7 +131,7 @@
 
   <script>
     (() => {
-      const imageSources = Array.from({ length: 18 }, (_, i) => `img/s${18 - i}.png`);
+      const imageSources = Array.from({ length: 23 }, (_, i) => `img/s${23 - i}.png`);
       const lightbox = document.getElementById("lightbox");
       const lightboxImage = document.getElementById("lightboxImage");
       const counter = document.getElementById("imageCounter");
@@ -140,7 +140,7 @@
       function showImage(index) {
         currentIndex = (index + imageSources.length) % imageSources.length;
         lightboxImage.src = imageSources[currentIndex];
-        lightboxImage.alt = `Gallery image ${18 - currentIndex}`;
+        lightboxImage.alt = `Gallery image ${23 - currentIndex}`;
         counter.textContent = `${currentIndex + 1} / ${imageSources.length}`;
       }
       function openViewer(index) {
