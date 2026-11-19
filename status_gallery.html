@@ -92,9 +92,10 @@
   <main>
     <div class="intro">
       <h2>Image Gallery</h2>
-      <span class="count">26 images</span>
+      <span class="count">27 images</span>
     </div>
     <section class="gallery" aria-label="Image gallery">
+      <button class="gallery-item" data-index="27" aria-label="Open image s27"><img src="img/s27.png" alt="Gallery image s27" loading="lazy"></button>
       <button class="gallery-item" data-index="26" aria-label="Open image s25"><img src="img/s26.png" alt="Gallery image s26" loading="lazy"></button>
       <button class="gallery-item" data-index="25" aria-label="Open image s25"><img src="img/s25.png" alt="Gallery image s25" loading="lazy"></button>
       <button class="gallery-item" data-index="24" aria-label="Open image s24"><img src="img/s24.png" alt="Gallery image s24" loading="lazy"></button>
@@ -134,7 +135,7 @@
 
   <script>
     (() => {
-      const imageSources = Array.from({ length: 25 }, (_, i) => `img/s${25 - i}.png`);
+      const imageSources = Array.from({ length: 26 }, (_, i) => `img/s${26 - i}.png`);
       const lightbox = document.getElementById("lightbox");
       const lightboxImage = document.getElementById("lightboxImage");
       const counter = document.getElementById("imageCounter");
@@ -143,7 +144,7 @@
       function showImage(index) {
         currentIndex = (index + imageSources.length) % imageSources.length;
         lightboxImage.src = imageSources[currentIndex];
-        lightboxImage.alt = `Gallery image ${25 - currentIndex}`;
+        lightboxImage.alt = `Gallery image ${26 - currentIndex}`;
         counter.textContent = `${currentIndex + 1} / ${imageSources.length}`;
       }
       function openViewer(index) {
